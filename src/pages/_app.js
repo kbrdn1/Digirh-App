@@ -8,7 +8,6 @@ export const metadata = {
   description:
     'Application de gestion des ressources humaines pour les entreprises.',
   keywords: 'RH, ressources humaines, gestion, entreprise, digirh, digirh.com',
-  favicon: favicon,
 }
 
 const nunito = Nunito({ subsets: ['latin-ext'] })
