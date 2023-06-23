@@ -8,7 +8,7 @@
       "@styles/*": ["./src/app/styles/*"],
       "@utils/*": ["./src/app/utils/*"],
       "@assets/*": ["./src/app/assets/*"],
-      "@hooks/*": ["./src/app/hooks/*"],
+      "@hooks/*": ["./src/app/hooks/*"]
     }
   }
 }
