@@ -1,7 +1,14 @@
 {
   "compilerOptions": {
     "paths": {
-      "@pages/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/app/components/*"],
+      "@layouts/*": ["./src/app/layouts/*"],
+      "@pages/*": ["./src/app/pages/*"],
+      "@styles/*": ["./src/app/styles/*"],
+      "@utils/*": ["./src/app/utils/*"],
+      "@assets/*": ["./src/app/assets/*"],
+      "@hooks/*": ["./src/app/hooks/*"],
     }
   }
 }
