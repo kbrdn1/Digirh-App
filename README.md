@@ -12,6 +12,8 @@
 
 This is the frontend application of the Digirh project. It is a web application build for HR management. It is build w/ NextJS and ReactJS.
 
+Backend application is available [→ here](https://github.com/Lucas-sch-57/DIGIRH).
+
 End of year project [Metz Numeric School](https://www.metz-numeric-school.fr/)
 
 ## Techs Stack 🛠️
@@ -24,6 +26,7 @@ End of year project [Metz Numeric School](https://www.metz-numeric-school.fr/)
 - React-Query 📡
 - Prettier 🧼
 - ESLint 🧹
+- Vercel 🚀
 
 ## Installation 📦
 
@@ -45,12 +48,12 @@ First, run the development server:
     npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [→ http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Deployment 📤
 
-This project is deployed on [Vercel](https://vercel.com/).
-You can see the result [here](https://digirh-app.vercel.app/) !
+This project is deployed on [🔺Vercel](https://vercel.com/).
+You can see the result [→ here](https://digirh-app.vercel.app/) !
 
 ## Collaborators 🤖
 
@@ -60,3 +63,17 @@ You can see the result [here](https://digirh-app.vercel.app/) !
 | SCHILTZ Lucas    | [@Lucas-sch-57](https://github.com/Lucas-sch-57) | Backend Developer / DevOps                    |
 | TERRIENNE Joris  | [@Joristr15](https://github.com/Joristr15)       | Frontend Developer                            |
 | TOVMASIAN Armine | [@Armine15](https://github.com/Armine15)         | Backend Developer / UI Designer               |
+
+---
+
+<p align="center">
+<a href="https://www.metz-numeric-school.fr/">
+<img src="https://www.metz-numeric-school.fr/build/images/frontend/logo-mns.svg" alt="Metz Numeric School" style="width: 75px" />
+<br />
+Metz Numeric School
+</a>
+<br />
+Copyrigth © 2023 - @kbrdn1 @Lucas-sch-57 @Joristr15 @Armine15
+</p>
+
+
