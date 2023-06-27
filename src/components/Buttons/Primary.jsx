@@ -6,7 +6,7 @@ const Primary = ({
   iconRight,
   disabled,
   full,
-  onClickAction
+  onClickAction,
 }) => {
   return (
     <button

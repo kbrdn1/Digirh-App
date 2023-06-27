@@ -6,7 +6,7 @@ const Delete = ({
   iconRight,
   disabled,
   full,
-  onClickAction
+  onClickAction,
 }) => {
   return (
     <button

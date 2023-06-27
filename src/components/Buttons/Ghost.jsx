@@ -6,7 +6,7 @@ const Ghost = ({
   iconRight,
   disabled,
   full,
-  onClickAction
+  onClickAction,
 }) => {
   return (
     <button

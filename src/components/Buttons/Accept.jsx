@@ -6,7 +6,7 @@ const Accept = ({
   iconRight,
   disabled,
   full,
-  onClickAction
+  onClickAction,
 }) => {
   return (
     <button

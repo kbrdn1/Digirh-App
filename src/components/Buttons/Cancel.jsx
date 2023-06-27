@@ -6,7 +6,7 @@ const Cancel = ({
   iconRight,
   disabled,
   full,
-  onClickAction
+  onClickAction,
 }) => {
   return (
     <button
