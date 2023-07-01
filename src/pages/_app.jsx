@@ -23,8 +23,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }) => {
   const verify = useVerify()
 
   // if user is not logged in, redirect to login page
-  if (pathname !== '/login')
-    verify()
+  if (pathname !== '/login') verify()
 
   // set loading to false after 2 seconds
   const load = () => {

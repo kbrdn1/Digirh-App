@@ -9,7 +9,6 @@ const nunito = Nunito({ subsets: ['latin'] })
 const libreFranklin = Libre_Franklin({ subsets: ['latin'] })
 
 export default function Home() {
-
   // logout user
   const logout = () => {
     console.log('logout')
