@@ -2,11 +2,22 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Nunito, Libre_Franklin } from 'next/font/google'
 import PrimaryBtn from '@/components/Buttons/Primary'
+import DangerBtn from '@/components/Buttons/Danger'
+import localStorage from 'local-storage'
 
 const nunito = Nunito({ subsets: ['latin'] })
 const libreFranklin = Libre_Franklin({ subsets: ['latin'] })
 
 export default function Home() {
+
+  // logout user
+  const logout = () => {
+    console.log('logout')
+    // remove user from local storage
+    localStorage.clear()
+    window.location.reload()
+  }
+
   return (
     <>
       <Head>
@@ -25,7 +36,17 @@ export default function Home() {
           <p className="text-center mt-4">
             Application de gestion des ressources humaines pour les entreprises.
           </p>
-          <PrimaryBtn content="Se connecter" full={true} />
+          <PrimaryBtn
+            content="Se connecter"
+            full={true}
+            onClickAction={() => (window.location.href = '/login')}
+          />
+          <br />
+          <DangerBtn
+            content="Se déconnecter"
+            full={true}
+            onClickAction={logout}
+          />
         </div>
       </main>
     </>

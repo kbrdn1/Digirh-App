@@ -35,8 +35,8 @@ module.exports = {
         'green-2': '#8DD18D',
       },
       fontFamily: {
-        franklin: 'LibreFranklin',
-        nunito: 'Nunito',
+        franklin: '__Libre_Franklin_66e5c3',
+        nunito: '__Nunito_9c5fe4',
       },
       boxShadow: {
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
