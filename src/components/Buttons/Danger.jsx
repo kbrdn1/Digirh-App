@@ -1,12 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Delete = ({
+const Danger = ({
   content,
   iconLeft,
   iconRight,
   disabled,
   full,
-  onClickAction,
+  onClickAction
 }) => {
   return (
     <button
@@ -23,4 +23,4 @@ const Delete = ({
   )
 }
 
-export default Delete
+export default Danger

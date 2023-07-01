@@ -28,4 +28,4 @@ const Default = ({
   )
 }
 
-export default Defa
+export default Default

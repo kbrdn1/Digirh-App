@@ -1,5 +1,5 @@
 import Title from "./Title"
-import DeleteBtn from "../Buttons/Delete"
+import DeleteBtn from "../Buttons/Danger"
 import AcceptBtn from "../Buttons/Accept"
 
 const Default = (props) => {
