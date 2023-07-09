@@ -28,7 +28,7 @@ const Login = () => {
     await authStore.login(data)
 
     if (authStore.user && authStore.jwt) {
-      navigate('/', { replace: true })
+      navigate('/Digirh-App', { replace: true })
     } else {
       errorRef.current = 'Identifiants incorrects'
     }

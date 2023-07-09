@@ -6,7 +6,7 @@ const SuperAdminGuard = ({ children }) => {
   const authStore = useContext(AuthContext)
 
   if (!authStore.user.roles.includes('ROLE_SUPERADMIN')) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/Digirh-App" replace />
   }
 
   return children
