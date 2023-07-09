@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+aside {
+  height: calc(100vh - 40px);
+}
+
+@media screen and (max-width: 768px) {
+  aside {
+    width: calc(100vw - 32px);
+  }
+}
