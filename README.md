@@ -1,9 +1,9 @@
 <p align="center">
-    <a href="https://digirh-app.vercel.app/">
+    <a href="https://kbrdn1.github.io/Digirh-App/">
         <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="https://digirh-app.vercel.app/logo/logo_text_h_light.svg">
-            <source media="(prefers-color-scheme: light)" srcset="https://digirh-app.vercel.app/logo/logo_text_h.svg">
-            <img alt="Digirh-App" src="https://digirh-app.vercel.app/logo/logo_text_h.svg" width="75%" />
+            <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/kbrdn1/Digirh-App/main/public/logo/logo_text_h_light.svg">
+            <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/kbrdn1/Digirh-App/main/public/logo/logo_text_h.svg">
+            <img alt="Digirh-App" src="https://raw.githubusercontent.com/kbrdn1/Digirh-App/main/public/logo/logo_text_h_light.svg" width="75%" />
         </picture>
     </a>
 </p>
