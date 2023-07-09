@@ -20,5 +20,9 @@ export default defineConfig({
       '@contexts': '/src/contexts',
       '@router': '/src/router'
     }
+  },
+  base: "/Digirh-App/",
+  build: {
+    outDir: 'dist'
   }
 })
