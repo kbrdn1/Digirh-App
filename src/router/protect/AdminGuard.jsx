@@ -6,7 +6,7 @@ const AdminGuard = ({ children }) => {
   const authStore = useContext(AuthContext)
 
   if (!authStore.user.roles.includes('ROLE_ADMIN')) {
-    return <Navigate to="/Digirh-App" replace />
+    return <Navigate to="/Digirh-App/" replace />
   }
 
   return children

@@ -26,7 +26,7 @@ const router = createBrowserRouter([
         path: '/Digirh-App/login',
         element:
           authStore.jwt && authStore.user ? (
-            <Navigate to="/" replace />
+            <Navigate to="/Digirh-App/" replace />
           ) : (
             <Login />
           ),
