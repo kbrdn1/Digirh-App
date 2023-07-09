@@ -1,9 +1,9 @@
 <p align="center">
     <a href="https://kbrdn1.github.io/Digirh-App/">
         <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/kbrdn1/Digirh-App/4d1b4f29be93dafa8137dc81aba62d62fe72aadd/public/logo/logo_text_h_light.svg?token=AWNTRVMHHJWPJSDWIIP3N53EVLMIE">
-            <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/kbrdn1/Digirh-App/4d1b4f29be93dafa8137dc81aba62d62fe72aadd/public/logo/logo_text_h.svg?token=AWNTRVOJJB3PNMQKIKRGQEDEVLMMW">
-            <img alt="Digirh-App" src="https://raw.githubusercontent.com/kbrdn1/Digirh-App/4d1b4f29be93dafa8137dc81aba62d62fe72aadd/public/logo/logo_text_h_light.svg?token=AWNTRVMHHJWPJSDWIIP3N53EVLMIE" width="75%" />
+            <source media="(prefers-color-scheme: dark)" srcset="https://kbrdn1.github.io/Digirh-App/logo/logo_text_h_light.svg">
+            <source media="(prefers-color-scheme: light)" srcset="https://kbrdn1.github.io/Digirh-App/logo/logo_text_h.svg">
+            <img alt="Digirh-App" src="https://kbrdn1.github.io/Digirh-App/logo/logo_text_h_light.svg" width="75%" />
         </picture>
     </a>
 </p>

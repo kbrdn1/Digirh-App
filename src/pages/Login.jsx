@@ -28,7 +28,7 @@ const Login = () => {
     await authStore.login(data)
 
     if (authStore.user && authStore.jwt) {
-      navigate('/', { replace: true })
+      navigate('/Digirh-App/', { replace: true })
     } else {
       errorRef.current = 'Identifiants incorrects'
     }
@@ -40,12 +40,12 @@ const Login = () => {
       <div className="bg-black w-full lg:h-screen lg:w-1/2 xl:w-1/4 flex items-center justify-center py-4">
         <img
           className="h-1/4 hidden lg:block"
-          src="/logo/logo_text_light.svg"
+          src="/Digirh-App/logo/logo_text_light.svg"
           alt="logo-DIGIRH"
         />
         <img
           className="lg:hidden"
-          src="/logo/logo_text_h_light.svg"
+          src="/Digirh-App/logo/logo_text_h_light.svg"
           alt="logo-DIGIRH"
         />
       </div>
