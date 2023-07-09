@@ -10,11 +10,11 @@ import Error from '@pages/500.jsx'
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/Digirh-App/',
     element: <App />,
     children: [
       {
-        path: '/',
+        path: '/Digirh-App/',
         element: (
           <AuthGuard>
             <Dashboard />
@@ -23,17 +23,17 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: '/login',
+        path: '/Digirh-App/login',
         element:
           authStore.jwt && authStore.user ? (
-            <Navigate to="/" replace />
+            <Navigate to="/Digirh-App/" replace />
           ) : (
             <Login />
           ),
         errorElement: <Error />,
       },
       {
-        path: '/logout',
+        path: '/Digirh-App/logout',
         element: <Logout />,
         errorElement: <Error />,
       },
