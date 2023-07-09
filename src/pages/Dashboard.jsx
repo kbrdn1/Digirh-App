@@ -10,7 +10,7 @@ const Dashboard = observer(() => {
     <>
       <main className="flex min-h-screen flex-col items-center justify-between p-24 font-nunito">
         <div className="flex flex-col items-center justify-center">
-          <img src="/logo/logo_h.svg" alt="Digirh" />
+          <img src="/Digirh-App/logo/logo_h.svg" alt="Digirh" />
           <h1 className="text-4xl font-bold text-center mt-8 font-franklin">
             Digirh
           </h1>
