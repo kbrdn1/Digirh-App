@@ -1,78 +1,52 @@
-import { useState } from 'react'
-import Image from 'next/image'
+import { useRef, useState } from 'react'
 import Input from '@components/Inputs/Default'
 import ButtonPrimary from '@components/Buttons/Primary'
-import Link from 'next/link'
-import axios from 'axios'
-import localStorage from 'local-storage'
-
-const api_url = process.env.NEXT_PUBLIC_API_URL
+import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import AuthContext from '@contexts/Auth.jsx'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const navigate = useNavigate()
+  const authStore = useContext(AuthContext)
+
+  const emailRef = useRef('')
+  const passwordRef = useRef('')
+  const errorRef = useRef(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
-
-  const handleEmail = (value) => {
-    setEmail(value)
-  }
-
-  const handlePassword = (value) => {
-    setPassword(value)
-  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
 
     setIsLoading(true)
 
-    try {
-      const response = await axios.post(`${api_url}/login`, {
-        username: email,
-        password: password,
-      })
-
-      if (response.data.success === 'Connecté') {
-        const { jwt, user } = response.data
-
-        if (user && jwt) {
-          // Save user to local storage
-          localStorage.set('user', user)
-          // Save JWT to local storage
-          localStorage.set('jwt', jwt)
-
-          // Redirect to home page (if in browser)
-          if (typeof window !== 'undefined') {
-            window.location.href = '/'
-          }
-        } else {
-          throw new Error('Invalid username or password')
-        }
-      }
-    } catch (error) {
-      console.error('Login failed:', error)
-      setError(error)
-    } finally {
-      setIsLoading(false)
+    const data = {
+      username: emailRef.current,
+      password: passwordRef.current,
     }
+
+    await authStore.login(data)
+
+    if (authStore.user && authStore.jwt) {
+      navigate('/', { replace: true })
+    } else {
+      errorRef.current = 'Identifiants incorrects'
+    }
+    setIsLoading(false)
   }
+
   return (
     <div className="flex flex-col lg:flex-row w-full">
       <div className="bg-black w-full lg:h-screen lg:w-1/2 xl:w-1/4 flex items-center justify-center py-4">
-        <Image
+        <img
           className="h-1/4 hidden lg:block"
           src="/logo/logo_text_light.svg"
           alt="logo-DIGIRH"
-          width={200}
-          height={200}
         />
-        <Image
+        <img
           className="lg:hidden"
-          src="/logo/logo_text_light.svg"
+          src="/logo/logo_text_h_light.svg"
           alt="logo-DIGIRH"
-          width={100}
-          height={100}
         />
       </div>
       <section className="bg-white w-full lg:h-screen lg:w-1/2 xl:w-3/4 flex flex-col items-center justify-center py-4">
@@ -93,7 +67,7 @@ const Login = () => {
                 required
                 autoComplete="email"
                 autoFocus
-                onChangeValue={handleEmail}
+                onChangeValue={(value) => (emailRef.current = value)}
               />
               <Input
                 type="password"
@@ -101,24 +75,26 @@ const Login = () => {
                 id="password"
                 placeholder="Mot de passe"
                 required
-                onChangeValue={handlePassword}
+                onChangeValue={(value) => (passwordRef.current = value)}
                 autoComplete="password"
               />
             </div>
+            {errorRef.current && (
+              <p className="text-danger text-center font-semibold">
+                {errorRef.current}
+              </p>
+            )}
             <ButtonPrimary
               type="submit"
               full
               disabled={isLoading}
-              content={isLoading ? 'Connexion en cours...' : 'Se connecter'}
+              iconRight={isLoading ? faSpinner : null}
+              iconSpin={isLoading}
+              content={isLoading ? 'Connexion en cours ' : 'Se connecter'}
             />
-            {error && (
-              <p className="text-danger text-center font-semibold">
-                {error.message}
-              </p>
-            )}
             <div className="flex gap-2 text-[14px] justify-center">
               <p className="text-gray-3">Vous n&rsquo;avez pas de compte ?</p>
-              <Link href="/register" className="text-primary-5 font-bold">
+              <Link to="/register" className="text-primary-5 font-bold">
                 S&lsquo;incrire
               </Link>
             </div>
