@@ -10,7 +10,7 @@
 
 ## Description 📝
 
-This is the frontend application of the Digirh project. It is a web application build for HR management. It is build w/ NextJS and ReactJS.
+This is the frontend application of the Digirh project. It is a web application build for HR management. It is build w/ Vite and ReactJS.
 
 Backend application is available [→ here](https://github.com/Lucas-sch-57/DIGIRH).
 
@@ -19,14 +19,13 @@ End of year project [Metz Numeric School](https://www.metz-numeric-school.fr/)
 ## Techs Stack 🛠️
 
 - pnpm 📦
-- NextJS 💻
+- Vite ⚡
 - ReactJS ⚛️
 - FontAwesome 😎
 - TailwindCSS 🍃
-- React-Query 📡
+- MobX 🚀
 - Prettier 🧼
 - ESLint 🧹
-- Vercel 🚀
 
 ## Installation 📦
 
@@ -52,8 +51,8 @@ Open [→ http://localhost:3000](http://localhost:3000) with your browser to see
 
 ## Deployment 📤
 
-This project is deployed on [🔺Vercel](https://vercel.com/).
-You can see the result [→ here](https://digirh-app.vercel.app/) !
+This project is deployed with Github Actions and Github Pages.
+You can see the result [→ here](https://kbrdn1.github.io/Digirh-App/) !
 
 ## Collaborators 🤖
 

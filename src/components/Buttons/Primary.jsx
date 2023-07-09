@@ -6,7 +6,8 @@ const Primary = ({
   iconRight,
   disabled,
   full,
-  onClickAction
+  onClickAction,
+  iconSpin,
 }) => {
   return (
     <button
@@ -18,7 +19,7 @@ const Primary = ({
     >
       {iconLeft && <FontAwesomeIcon icon={iconLeft} />}
       {content}
-      {iconRight && <FontAwesomeIcon icon={iconRight} />}
+      {iconRight && <FontAwesomeIcon icon={iconRight} spinPulse={iconSpin} />}
     </button>
   )
 }
