@@ -1,4 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useState } from 'react'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 const Search = ({
   placeholder,
@@ -9,7 +11,7 @@ const Search = ({
   autofocus,
   onSearch,
 }) => {
-  const [value, setValue] = React.useState('')
+  const [value, setValue] = useState('')
 
   const handleValue = (e) => {
     setValue(e.target.value)
@@ -39,7 +41,7 @@ const Search = ({
         className="absolute flex items-center right-0 text-gray hover:text-white hover:bg-primary-hover px-[16px] h-full border-gray border-l rounded-r-md cursor-pointer transition-all"
         onClick={handleSearch}
       >
-        <FontAwesomeIcon icon="search" />
+        <FontAwesomeIcon icon={faSearch} />
       </div>
     </div>
   )

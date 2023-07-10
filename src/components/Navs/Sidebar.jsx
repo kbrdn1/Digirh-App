@@ -1,116 +1,161 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState, useContext } from 'react'
-import { UserContext } from '../../contexts/UserContext'
-import ButtonDelete from '@components/Buttons/ButtonDelete'
-import ButtonSecondary from '@components/Buttons/ButtonSecondary'
+import {
+  faBars,
+  faEllipsisVertical,
+  faHouse,
+  faCalendarDays,
+  faCar,
+  faChartLine,
+  faBell,
+  faSuitcase,
+  faSitemap,
+  faUsers,
+  faUserGroup,
+  faIndustry,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons'
+import { useState, useEffect } from 'react'
+import BtnDanger from '@components/Buttons/Danger'
+import BtnSecondary from '@components/Buttons/Secondary'
 import Items from './Items'
 import DropdownItems from './DropdownItems.jsx'
+import { observer } from 'mobx-react'
+import authStore from '@stores/Auth'
 
-const Sidebar = () => {
+const LeavesItems = [
+  {
+    content: 'Equipes',
+    iconLeft: faUsers,
+    link: '/Digirh-App/leaves/teams',
+  },
+  {
+    content: 'Collaborateurs',
+    iconLeft: faUserGroup,
+    link: '/Digirh-App/leaves/collaborators',
+  },
+]
+
+const OrganizationItems = [
+  {
+    content: 'Equipes',
+    iconLeft: faUsers,
+    link: '/Digirh-App/organization/teams',
+  },
+  {
+    content: 'Entreprise',
+    iconLeft: faIndustry,
+    link: '/Digirh-App/organization/company',
+  },
+]
+
+const Sidebar = observer(() => {
+  const navigate = useNavigate()
+
   const [isOpen, setIsOpen] = useState(false)
   const [openOption, setOpenOption] = useState(false)
-  const user = useContext(UserContext)
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
+    if (window.innerWidth > 1024) {
       setIsOpen(false)
     }
   })
 
+  if (!authStore.user && !authStore.jwt) return null
+
   return (
     <>
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-0 ${
+        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 font-nunito ${
           isOpen ? 'block' : 'hidden'
         }`}
         onClick={() => setIsOpen(false)}
       ></div>
       <button
-        className={`fixed top-7 left-4 z-10 bg-black rounded-lg w-[48px] h-[48px] flex items-center justify-center transition-all md:hidden ${
+        className={`fixed top-7 left-4 z-20 bg-black rounded-lg w-[48px] h-[48px] flex items-center justify-center duration-300 ease-out lg:hidden ${
           isOpen ? 'hidden' : 'block'
         }`}
         onClick={() => setIsOpen(true)}
       >
         <FontAwesomeIcon
-          icon="fa-solid fa-bars"
+          icon={isOpen ? faXmark : faBars}
           className="text-white"
           size="lg"
         />
       </button>
       <aside
-        className={`fixed z-10 bg-black flex flex-col justify-between gap-2 rounded-xl md:w-[256px] transition-all md:translate-x-0 md:left-4 ${
-          !isOpen ? '-translate-x-full' : 'left-4'
+        className={`h-screen lg:h-[calc(100vh-40px)] w-[calc(100vw-4rem)] fixed z-10 bg-black flex flex-col justify-between gap-2 rounded-xl lg:rounded-l-xl rounded-l-none lg:w-[256px] duration-300 ease-out lg:translate-x-0 left-0 top-0 lg:left-4 lg:top-4 ${
+          !isOpen ? '-translate-x-full' : 'translate-x-0'
         }`}
       >
         <Link
-          href="/"
+          to="/Digirh-App/"
           className="w-full py-[22px] flex items-center justify-center border-b border-primary"
         >
-          <Image src={logoDigirh} alt="logo_digirh" className="w-[146px]" />
+          <img
+            src="/Digirh-App/logo/logo_h_light.svg"
+            alt="logo_digirh"
+            className="w-[146px]"
+          />
         </Link>
         <div className="h-full">
           <div className="w-full flex flex-col px-4 gap-1">
             <Items
               content="Tableau de bord"
               full
-              iconLeft={'fa-house'}
-              link="home"
+              iconLeft={faHouse}
+              link="/Digirh-App/"
             />
             <Items
               content="Calendier"
               full
-              iconLeft={'fa-calendar-days'}
-              link="calendar"
+              iconLeft={faCalendarDays}
+              link="/Digirh-App/calendar"
             />
             <DropdownItems
               content="Absences"
               full
-              iconLeft={'fa-suitcase'}
+              iconLeft={faSuitcase}
               items={LeavesItems}
             />
             <DropdownItems
               content="Organisation"
               full
-              iconLeft={'fa-sitemap'}
+              iconLeft={faSitemap}
               items={OrganizationItems}
             />
-            <Items
-              content="Déplacements"
-              full
-              iconLeft={'fa-car'}
-              link="trip"
-            />
+            <Items content="Déplacements" full iconLeft={faCar} link="trip" />
             <Items
               content="Statistiques"
               full
-              iconLeft={'fa-chart-line'}
-              link="stats"
+              iconLeft={faChartLine}
+              link="/Digirh-App/stats"
             />
             <Items
               content="Notifications"
               full
-              iconLeft={'fa-bell'}
-              link="notifications"
+              iconLeft={faBell}
+              link="/Digirh-App/notifications"
             />
           </div>
         </div>
         <div className="relative w-full py-6 px-4 flex items-center justify-between border-t border-primary">
-          <Image
-            src={avatar}
+          <img
+            src="/Digirh-App/avatar.png"
             alt="avatar"
             className="h-10 border rounded-full border-secondary"
           />
           <div className="flex flex-col">
             <p className="text-white font-franklin text-sm font-medium">
-              Alexender Arnold
+              {authStore.user.firstname} {authStore.user.name}
             </p>
-            <p className="text-gray text-sm font-medium">{user.username}</p>
+            <p className="text-gray text-sm font-medium">
+              {authStore.user.email}
+            </p>
           </div>
           <div className="px-1" onClick={() => setOpenOption(!openOption)}>
             <FontAwesomeIcon
-              icon="fa-solid fa-ellipsis-vertical"
+              icon={faEllipsisVertical}
               className="text-gray"
               size="xl"
             />
@@ -120,21 +165,21 @@ const Sidebar = () => {
               openOption ? 'block' : 'hidden'
             }`}
           >
-            <ButtonSecondary
+            <BtnSecondary
               content="Profil"
               full
-              onClickAction={() => redirect('profile')}
+              onClickAction={() => navigate('/Digirh-App/profile')}
             />
-            <ButtonDelete
+            <BtnDanger
               content="Déconnexion"
               full
-              onClickAction={() => redirect('logout')}
+              onClickAction={() => navigate('/Digirh-App/logout')}
             />
           </div>
         </div>
       </aside>
     </>
   )
-}
+})
 
 export default Sidebar

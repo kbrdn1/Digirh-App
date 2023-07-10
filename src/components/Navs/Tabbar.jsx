@@ -1,37 +1,32 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
 import Searchbar from '@components/Inputs/Search'
-import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { observer } from 'mobx-react'
+import authStore from '@stores/Auth'
 
-const Tabbar = (props) => {
-  // get pathnames without "/" and first letter uppercase
-  const [pathname, setPathname] =
-    (useState < string) |
-    (undefined >
-      window.location.pathname.split('/')[1].charAt(0).toUpperCase() +
-        window.location.pathname.split('/')[1].slice(1))
+const Tabbar = observer(() => {
+  const location = useLocation()
+  const path = location.pathname.split('/')[2]
 
-  if (pathname === '') setPathname('Tableau de bord')
+  if (!authStore.user && !authStore.jwt) return null
+
   return (
-    <div className="sticky bg-white flex items-center justify-between py-[8px] px-[16px] ml-16 md:ml-0 my-[20px] rounded-lg shadow-sm">
+    <div className="sticky bg-white flex items-center justify-between py-[8px] px-[16px] ml-16 md:ml-0 mb-5 rounded-lg shadow-sm duration-300 ease-out">
       <div className="flex flex-col gap-1">
-        <p className="text-sm text-black">
-          <span className="opacity-50 text-gray">
-            {pathname !== 'Tableau de bord' ? 'Tableau de bord / ' : ''}
-          </span>
-          {pathname}
-        </p>
+        <div className="text-sm text-black">
+          <span className="opacity-50 text-gray">Dashboard</span>
+          {path ? ' / ' : null}
+          {path ? <span className="first-letter:uppercase">{path}</span> : null}
+        </div>
         <p className="text-md text-black font-semibold font-franklin first-letter:uppercase">
-          {pathname}
+          {path ? path : 'Dashboard'}
         </p>
       </div>
       <Searchbar />
-      <FontAwesomeIcon
-        icon="fa-solid fa-gear"
-        className="text-gray"
-        size="lg"
-      />
+      <FontAwesomeIcon icon={faCog} className="hidden lg:flex text-gray" size="lg" />
     </div>
   )
-}
+})
 
 export default Tabbar
