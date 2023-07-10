@@ -7,6 +7,7 @@ import Login from '@pages/Login.jsx'
 import Logout from '@pages/Logout.jsx'
 import NotFound from '@pages/404.jsx'
 import Error from '@pages/500.jsx'
+import Teams from '../pages/Teams.jsx'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,14 @@ const router = createBrowserRouter([
           </AuthGuard>
         ),
         errorElement: <Error />,
+      },
+      {
+        path: '/Digirh-App/teams',
+        element: (
+          <AuthGuard>
+            <Teams />
+          </AuthGuard>
+        )
       },
       {
         path: '/Digirh-App/login',
