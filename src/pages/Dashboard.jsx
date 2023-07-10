@@ -2,7 +2,6 @@ import BtnDanger from '@components/Buttons/Danger'
 import { useNavigate } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
-
 const Dashboard = observer(() => {
   const navigate = useNavigate()
 
