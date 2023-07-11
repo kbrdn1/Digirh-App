@@ -2,7 +2,6 @@ import BtnDanger from '@components/Buttons/Danger'
 import { useNavigate } from 'react-router-dom'
 import { observer } from 'mobx-react'
 
-
 const Dashboard = observer(() => {
   const navigate = useNavigate()
 
@@ -21,7 +20,7 @@ const Dashboard = observer(() => {
           <div className="flex flex-col gap-4 mt-8">
             <BtnDanger
               content="Se déconnecter"
-              onClickAction={() => navigate('/Digirh-App/logout')}
+              onClickAction={() => navigate('/logout')}
             />
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import Items from './Items'
 
@@ -16,20 +17,18 @@ const DropdownItems = ({ content, iconLeft, full, items }) => {
       >
         <FontAwesomeIcon
           icon={iconLeft}
-          size="md"
           className="text-white group-hover:text-secondary"
         />
         <p>{content}</p>
         <FontAwesomeIcon
-          icon="fa-solid fa-caret-left"
-          size="md"
+          icon={faCaretLeft}
           className={`ml-auto text-white ${
             isOpen ? 'transform -rotate-90' : ''
-          }`}
+          } transition-all`}
         />
       </div>
       <div
-        className={`flex flex-col justify-end gap-1 pl-10 ${
+        className={`flex flex-col justify-end gap-1 pl-10 mt-2 ${
           !isOpen ? 'hidden' : ''
         }`}
       >
@@ -39,6 +38,7 @@ const DropdownItems = ({ content, iconLeft, full, items }) => {
             content={item.content}
             iconLeft={item.iconLeft}
             link={item.link}
+            full
           />
         ))}
       </div>

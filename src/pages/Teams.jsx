@@ -1,3 +1,4 @@
+
 import TeamTable from "@/components/Tables/TeamTable";
 import TeamContext from "../contexts/Team";
 import AuthContext from "../contexts/Auth";

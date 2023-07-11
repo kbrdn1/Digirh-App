@@ -2,12 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply bg-light;
+}
+
 aside {
   height: calc(100vh - 40px);
 }
 
 @media screen and (max-width: 768px) {
   aside {
-    width: calc(100vw - 32px);
+    width: ;
   }
+}
+
+.active {
+  @apply text-secondary !important;
+  @apply outline-secondary;
+  @apply outline;
+  @apply outline-1;
+
 }
