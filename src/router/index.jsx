@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createHashRouter, Navigate } from 'react-router-dom'
 import App from '../App.jsx'
 import AuthGuard from './protect/AuthGuard.jsx'
 import authStore from '@stores/Auth.jsx'
@@ -7,14 +7,15 @@ import Login from '@pages/Login.jsx'
 import Logout from '@pages/Logout.jsx'
 import NotFound from '@pages/404.jsx'
 import Error from '@pages/500.jsx'
+import Teams from '@pages/Teams.jsx'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
-    path: '/Digirh-App/',
+    path: '/',
     element: <App />,
     children: [
       {
-        path: '/Digirh-App/',
+        path: '/',
         element: (
           <AuthGuard>
             <Dashboard />
@@ -23,18 +24,27 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: '/Digirh-App/login',
+        path: '/login',
         element:
           authStore.jwt && authStore.user ? (
-            <Navigate to="/Digirh-App/" replace />
+            <Navigate to="/" replace />
           ) : (
             <Login />
           ),
         errorElement: <Error />,
       },
       {
-        path: '/Digirh-App/logout',
+        path: '/logout',
         element: <Logout />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/organization/teams',
+        element: (
+          <AuthGuard>
+            <Teams />
+          </AuthGuard>
+        ),
         errorElement: <Error />,
       },
       {

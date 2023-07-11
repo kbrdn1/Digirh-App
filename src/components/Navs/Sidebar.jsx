@@ -15,7 +15,7 @@ import {
   faIndustry,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import BtnDanger from '@components/Buttons/Danger'
 import BtnSecondary from '@components/Buttons/Secondary'
 import Items from './Items'
@@ -27,12 +27,12 @@ const LeavesItems = [
   {
     content: 'Equipes',
     iconLeft: faUsers,
-    link: '/Digirh-App/leaves/teams',
+    link: '/leaves/teams',
   },
   {
     content: 'Collaborateurs',
     iconLeft: faUserGroup,
-    link: '/Digirh-App/leaves/collaborators',
+    link: '/leaves/collaborators',
   },
 ]
 
@@ -40,12 +40,12 @@ const OrganizationItems = [
   {
     content: 'Equipes',
     iconLeft: faUsers,
-    link: '/Digirh-App/organization/teams',
+    link: '/organization/teams',
   },
   {
     content: 'Entreprise',
     iconLeft: faIndustry,
-    link: '/Digirh-App/organization/company',
+    link: '/organization/company',
   },
 ]
 
@@ -89,7 +89,7 @@ const Sidebar = observer(() => {
         }`}
       >
         <Link
-          to="/Digirh-App/"
+          to="/"
           className="w-full py-[22px] flex items-center justify-center border-b border-primary"
         >
           <img
@@ -100,42 +100,50 @@ const Sidebar = observer(() => {
         </Link>
         <div className="h-full">
           <div className="w-full flex flex-col px-4 gap-1">
-            <Items
-              content="Tableau de bord"
-              full
-              iconLeft={faHouse}
-              link="/Digirh-App/"
-            />
+            <Items content="Tableau de bord" full iconLeft={faHouse} link="/" />
             <Items
               content="Calendier"
               full
               iconLeft={faCalendarDays}
-              link="/Digirh-App/calendar"
+              link="/calendar"
             />
-            <DropdownItems
-              content="Absences"
-              full
-              iconLeft={faSuitcase}
-              items={LeavesItems}
-            />
-            <DropdownItems
-              content="Organisation"
-              full
-              iconLeft={faSitemap}
-              items={OrganizationItems}
-            />
-            <Items content="Déplacements" full iconLeft={faCar} link="trip" />
+            {authStore.user.roles.includes('ROLE_ADMIN') ||
+            authStore.user.roles.includes('ROLE_SUPER_ADMIN') ? (
+              <DropdownItems
+                content="Absences"
+                full
+                iconLeft={faSuitcase}
+                items={LeavesItems}
+              />
+            ) : (
+              <Items
+                content="Absences"
+                full
+                iconLeft={faSuitcase}
+                link="/leaves"
+              />
+            )}
+            {authStore.user.roles.includes('ROLE_ADMIN') ||
+              (authStore.user.roles.includes('ROLE_SUPER_ADMIN') && (
+                <DropdownItems
+                  content="Organisation"
+                  full
+                  iconLeft={faSitemap}
+                  items={OrganizationItems}
+                />
+              ))}
+            <Items content="Déplacements" full iconLeft={faCar} link="/trips" />
             <Items
               content="Statistiques"
               full
               iconLeft={faChartLine}
-              link="/Digirh-App/stats"
+              link="/stats"
             />
             <Items
               content="Notifications"
               full
               iconLeft={faBell}
-              link="/Digirh-App/notifications"
+              link="/notifications"
             />
           </div>
         </div>
@@ -168,12 +176,12 @@ const Sidebar = observer(() => {
             <BtnSecondary
               content="Profil"
               full
-              onClickAction={() => navigate('/Digirh-App/profile')}
+              onClickAction={() => navigate('/profile')}
             />
             <BtnDanger
               content="Déconnexion"
               full
-              onClickAction={() => navigate('/Digirh-App/logout')}
+              onClickAction={() => navigate('/logout')}
             />
           </div>
         </div>

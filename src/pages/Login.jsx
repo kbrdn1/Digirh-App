@@ -56,7 +56,7 @@ const Login = () => {
           </h1>
           <form
             onSubmit={handleSubmit}
-            className="w-full max-w-md flex flex-col gap-3"
+            className="w-full max-w-md flex flex-col gap-3 p-2 md:p-0"
           >
             <div className="flex flex-col gap-4 text-[14px] w-full">
               <Input
