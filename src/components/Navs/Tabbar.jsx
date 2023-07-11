@@ -7,6 +7,7 @@ import authStore from '@stores/Auth'
 
 const Tabbar = observer(() => {
   const location = useLocation()
+  
   // get full path remove first slash and uppercase first letter and place each word in array
   const path = location.pathname
     .slice(1)
@@ -16,8 +17,6 @@ const Tabbar = observer(() => {
   
   //get the lasr word of the path and uppercase first letter
   const currentPath = path.split('/').pop().charAt(0).toUpperCase() + path.split('/').pop().slice(1)
-
-  console.log(path, currentPath)
 
   if (!authStore.user && !authStore.jwt) return null
 

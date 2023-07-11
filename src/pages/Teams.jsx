@@ -1,7 +1,6 @@
-
-import TeamTable from "@/components/Tables/TeamTable";
-import TeamContext from "../contexts/Team";
-import AuthContext from "../contexts/Auth";
+import TeamTable from "@components/Tables/TeamTable";
+import TeamContext from "@contexts/Team";
+import AuthContext from "@contexts/Auth";
 import { useContext, useEffect } from "react";
 import { observer } from "mobx-react";
 const Teams = observer(() => {

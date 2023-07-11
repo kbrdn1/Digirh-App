@@ -12,7 +12,7 @@ const App = () => {
         className={`${
           authStore.user &&
           authStore.jwt &&
-          'md:ml-[calc(256px+20px)] py-4 px-4'
+          'lg:ml-[calc(256px+20px)] py-4 px-4'
         }`}
       >
         <Tabbar />
