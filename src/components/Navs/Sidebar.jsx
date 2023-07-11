@@ -107,18 +107,31 @@ const Sidebar = observer(() => {
               iconLeft={faCalendarDays}
               link="/calendar"
             />
-            <DropdownItems
-              content="Absences"
-              full
-              iconLeft={faSuitcase}
-              items={LeavesItems}
-            />
-            <DropdownItems
-              content="Organisation"
-              full
-              iconLeft={faSitemap}
-              items={OrganizationItems}
-            />
+            {authStore.user.roles.includes('ROLE_ADMIN') ||
+            authStore.user.roles.includes('ROLE_SUPER_ADMIN') ? (
+              <DropdownItems
+                content="Absences"
+                full
+                iconLeft={faSuitcase}
+                items={LeavesItems}
+              />
+            ) : (
+              <Items
+                content="Absences"
+                full
+                iconLeft={faSuitcase}
+                link="/leaves"
+              />
+            )}
+            {authStore.user.roles.includes('ROLE_ADMIN') ||
+              (authStore.user.roles.includes('ROLE_SUPER_ADMIN') && (
+                <DropdownItems
+                  content="Organisation"
+                  full
+                  iconLeft={faSitemap}
+                  items={OrganizationItems}
+                />
+              ))}
             <Items content="Déplacements" full iconLeft={faCar} link="/trips" />
             <Items
               content="Statistiques"
