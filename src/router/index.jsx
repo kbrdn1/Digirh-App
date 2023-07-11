@@ -7,6 +7,7 @@ import Login from '@pages/Login.jsx'
 import Logout from '@pages/Logout.jsx'
 import NotFound from '@pages/404.jsx'
 import Error from '@pages/500.jsx'
+import Teams from '@pages/Teams.jsx'
 
 const router = createHashRouter([
   {
@@ -35,6 +36,15 @@ const router = createHashRouter([
       {
         path: '/logout',
         element: <Logout />,
+        errorElement: <Error />,
+      },
+      {
+        path: '/organization/teams',
+        element: (
+          <AuthGuard>
+            <Teams />
+          </AuthGuard>
+        ),
         errorElement: <Error />,
       },
       {
