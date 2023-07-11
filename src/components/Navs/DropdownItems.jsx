@@ -28,7 +28,7 @@ const DropdownItems = ({ content, iconLeft, full, items }) => {
         />
       </div>
       <div
-        className={`flex flex-col justify-end gap-1 pl-10 ${
+        className={`flex flex-col justify-end gap-1 pl-10 mt-2 ${
           !isOpen ? 'hidden' : ''
         }`}
       >
@@ -38,6 +38,7 @@ const DropdownItems = ({ content, iconLeft, full, items }) => {
             content={item.content}
             iconLeft={item.iconLeft}
             link={item.link}
+            full
           />
         ))}
       </div>

@@ -7,7 +7,17 @@ import authStore from '@stores/Auth'
 
 const Tabbar = observer(() => {
   const location = useLocation()
-  const path = location.pathname.split('/')[2]
+  // get full path remove first slash and uppercase first letter and place each word in array
+  const path = location.pathname
+    .slice(1)
+    .split('/')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' / ')
+  
+  //get the lasr word of the path and uppercase first letter
+  const currentPath = path.split('/').pop().charAt(0).toUpperCase() + path.split('/').pop().slice(1)
+
+  console.log(path, currentPath)
 
   if (!authStore.user && !authStore.jwt) return null
 
@@ -20,11 +30,15 @@ const Tabbar = observer(() => {
           {path ? <span className="first-letter:uppercase">{path}</span> : null}
         </div>
         <p className="text-md text-black font-semibold font-franklin first-letter:uppercase">
-          {path ? path : 'Dashboard'}
+          {currentPath ? currentPath : 'Dashboard'}
         </p>
       </div>
       <Searchbar />
-      <FontAwesomeIcon icon={faCog} className="hidden lg:flex text-gray" size="lg" />
+      <FontAwesomeIcon
+        icon={faCog}
+        className="hidden lg:flex text-gray"
+        size="lg"
+      />
     </div>
   )
 })

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-light
+  @apply bg-light;
 }
 
 aside {
@@ -18,4 +18,8 @@ aside {
 
 .active {
   @apply text-secondary !important;
+  @apply outline-secondary;
+  @apply outline;
+  @apply outline-1;
+
 }
