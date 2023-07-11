@@ -30,6 +30,7 @@ class AuthStore {
   constructor() {
     this.jwt = localStorage.getItem('jwt')
     this.user = JSON.parse(localStorage.getItem('user'))
+    this.verifyToken()
     makeAutoObservable(this)
   }
 
@@ -101,20 +102,23 @@ class AuthStore {
    **/
   verifyToken = async () => {
     const token = this.getJwt()
-
+    console.log(token)
+    if (!token) {
+      this.removeJwt()
+      this.removeUser()
+      return
+    }
     await axios
-      .post(`${api_url}/token/verify`, {
+      .post(`${api_url}/token/verify`, { jwt: token }, {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: {
-          jwt: token,
-        },
+          Authorization: `Bearer ${token}`
+        }
       })
       .catch((err) => {
-        this.removeJwt()
-        this.removeUser()
-        console.log(err)
+        if (err.response && err.response.status === 401) {
+          this.removeJwt()
+          this.removeUser()
+        }
       })
   }
 

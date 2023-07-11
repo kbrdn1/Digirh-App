@@ -9,7 +9,7 @@ const Logout = () => {
     authStore.logout()
   }, [])
 
-  return <Navigate to="/Digirh-App/login" replace />
+  return <Navigate to="/login" replace />
 }
 
 export default Logout
