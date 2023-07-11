@@ -24,16 +24,7 @@ const router = createHashRouter([
         errorElement: <Error />,
       },
       {
-
-        path: '/Digirh-App/teams',
-        element: (
-          <AuthGuard>
-            <Teams />
-          </AuthGuard>
-        )
-      },
-      {
-        path: '/Digirh-App/login',
+        path: '/login',
         element:
           authStore.jwt && authStore.user ? (
             <Navigate to="/" replace />
