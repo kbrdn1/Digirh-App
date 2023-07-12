@@ -1,19 +1,10 @@
-import Image from 'next/image'
+import avatar from '@public/avatar.png'
+import authStore from '@stores/Auth'
+import { observer } from 'mobx-react'
 
-const Profile = ({
-  avatar,
-  firstname,
-  lastname,
-  email,
-  phone,
-  fonction,
-  roles,
-  status,
-  teams,
-  hireDate,
-  footer,
-  full,
-}) => {
+const Profile = observer(({ footer, full }) => {
+  const user = authStore.user
+
   return (
     <div
       className={`relative bg-white shadow-xl font-nunito flex flex-col rounded-[12px] ${
@@ -21,9 +12,9 @@ const Profile = ({
       }`}
     >
       {avatar && (
-        <Image
+        <img
           className="absolute -top-[25px] left-[25px] w-[100px] rounded-[10px]"
-          src={avatar || '/avatar.png'}
+          src={avatar || '/Digirh-App/avatar.png'}
           alt="profile-pic"
         />
       )}
@@ -33,15 +24,15 @@ const Profile = ({
         }`}
       >
         <div className="text-black text-[2rem]">
-          {firstname + ' ' + lastname}
+          {user.firstname + ' ' + user.name}
         </div>
-        <div
+        {/* <div
           className={`text-white font-medium font-franklin text-[11px] py-[4px] px-[8px] h-fit uppercase w-fit flex items-center rounded-[10px] ${
             status ? 'bg-valid' : 'bg-danger'
           }`}
         >
           {status ? 'Présent' : 'Absent'}
-        </div>
+        </div> */}
       </div>
       <div
         className={`p-[20px] flex flex-col gap-[8px] w-full border-b border-light-2 ${
@@ -51,12 +42,12 @@ const Profile = ({
         <div className="font-franklin text-gray-2 text-[1rem] font-bold">
           Fonction
         </div>
-        <div className="text-black text-[1rem] text-gray-4">{fonction}</div>
+        {/* <div className="text-black text-[1rem] text-gray-4">{fonction}</div> */}
         <div className="font-franklin text-gray-2 text-[1rem] font-bold">
           Rôle
         </div>
         <div className="text-black text-[1rem] text-gray-4">
-          {roles.map((role) => role + ', ')}
+          {/* {user.roles.map((role) => role + ', ')} */}
         </div>
       </div>
       <div className="py-[20px] pl-[40px] pr-[20px] flex flex-col gap-[8px] w-full border-b border-light-2">
@@ -64,14 +55,14 @@ const Profile = ({
           Equipes
         </div>
         <div className="grid gap-[10px] grid-cols-2">
-          {teams.map((team, key) => (
+          {/* {user.teams.map((team, index) => (
             <div
               className="text-black text-[1rem] font-bold flex gap-[1rem] items-center"
-              key={key}
+              key={index}
             >
               {team}
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
       <div className="py-[20px] pl-[40px] pr-[20px] flex flex-col gap-[8px] w-full border-b border-light-2">
@@ -80,21 +71,21 @@ const Profile = ({
         </div>
         <div className="flex items-center gap-[8px] text-gray-4">
           <p className="font-bold text-black">E-mail:</p>
-          {email}
+          {user.email}
         </div>
-        <div className="flex items-center gap-[8px] text-gray-4">
+        {/* <div className="flex items-center gap-[8px] text-gray-4">
           <p className="font-bold text-black">Téléphone:</p>
           {phone}
-        </div>
+        </div> */}
       </div>
       <div className="py-[20px] pl-[40px] pr-[20px] flex flex-col gap-[8px] w-full border-b border-light-2">
-        <div className="font-franklin text-gray-2 text-[1rem] font-bold">
+        {/* <div className="font-franklin text-gray-2 text-[1rem] font-bold">
           Embauche
         </div>
         <div className="flex items-center gap-[8px] text-gray-4">
           <p className="font-bold text-black">Date:</p>
           {hireDate}
-        </div>
+        </div> */}
       </div>
       {footer && (
         <div className="w-full py-[20px] px-[40px] gap-[24px] border-t border-light-2">
@@ -103,6 +94,6 @@ const Profile = ({
       )}
     </div>
   )
-}
+})
 
 export default Profile
