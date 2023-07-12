@@ -8,13 +8,7 @@ const App = () => {
   return (
     <AuthContext.Provider value={authStore}>
       <Sidebar />
-      <main
-        className={`${
-          authStore.user &&
-          authStore.jwt &&
-          'lg:ml-[calc(256px+20px)] py-4 px-4'
-        }`}
-      >
+      <main className="lg:ml-[calc(256px+20px)] py-4 px-4">
         <Tabbar />
         <Outlet />
       </main>

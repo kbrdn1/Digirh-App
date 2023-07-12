@@ -29,18 +29,8 @@ const router = createHashRouter([
         element: (
           <AuthGuard>
             <Profile />
-          </AuthGuard> 
+          </AuthGuard>
         ),
-        errorElement: <Error />,
-      },
-      {
-        path: '/login',
-        element:
-          authStore.jwt && authStore.user ? (
-            <Navigate to="/" replace />
-          ) : (
-            <Login />
-          ),
         errorElement: <Error />,
       },
       {
@@ -63,6 +53,12 @@ const router = createHashRouter([
         errorElement: <Error />,
       },
     ],
+  },
+  {
+    path: '/login',
+    element:
+      authStore.jwt && authStore.user ? <Navigate to="/" replace /> : <Login />,
+    errorElement: <Error />,
   },
 ])
 

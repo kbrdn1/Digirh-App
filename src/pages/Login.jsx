@@ -28,7 +28,7 @@ const Login = () => {
     await authStore.login(data)
 
     if (authStore.user && authStore.jwt) {
-      navigate('/Digirh-App/', { replace: true })
+      navigate('/', { replace: true })
     } else {
       errorRef.current = 'Identifiants incorrects'
     }
@@ -36,7 +36,7 @@ const Login = () => {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row w-full">
+    <div className="flex flex-col lg:flex-row w-full min-h-screen">
       <div className="bg-black w-full lg:h-screen lg:w-1/2 xl:w-1/4 flex items-center justify-center py-4">
         <img
           className="h-1/4 hidden lg:block"
@@ -49,7 +49,7 @@ const Login = () => {
           alt="logo-DIGIRH"
         />
       </div>
-      <section className="bg-white w-full lg:h-screen lg:w-1/2 xl:w-3/4 flex flex-col items-center justify-center py-4">
+      <section className="w-full lg:h-screen lg:w-1/2 xl:w-3/4 flex flex-col items-center justify-center py-4">
         <div className="font-nunito w-full xl:w-1/2 flex flex-col items-center gap-5 lg:mx-auto">
           <h1 className="font-franklin font-bold text-4xl w-fit bg-clip-text text-transparent bg-gradient-to-tr from-primary to-primary-5">
             Connexion
