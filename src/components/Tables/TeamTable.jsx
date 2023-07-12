@@ -7,19 +7,19 @@ const items = [
   {
     name: 'Design',
     color: '#DF84CB',
-    tripExpenses : 10000,
+    tripExpenses: 10000,
     progress: 100,
   },
   {
     name: 'Web Development',
     color: '#FBBF24',
-    tripExpenses : 12500,
+    tripExpenses: 12500,
     progress: 50,
   },
   {
     name: 'Marketing',
     color: '#34D399',
-    tripExpenses : 5000,
+    tripExpenses: 5000,
     progress: 75,
   },
   {
@@ -27,7 +27,7 @@ const items = [
     color: '#3B82F6',
     tripExpenses: 7500,
     progress: 25,
-  }
+  },
 ]
 
 const TeamTable = () => {

@@ -5,15 +5,15 @@ import router from '@router'
 import axios from 'axios'
 
 axios.interceptors.request.use(
-  config => {
+  (config) => {
     console.log(config.headers)
-    config.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
-    return config;
+    config.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`
+    return config
   },
-  error => {
-    return Promise.reject(error);
+  (error) => {
+    return Promise.reject(error)
   }
-);
+)
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <RouterProvider router={router}></RouterProvider>

@@ -111,7 +111,7 @@ class TeamStore {
    * @async
    * @method
    **/
-  async getTeamById(id) { }
+  async getTeamById(id) {}
 }
 
 const teamStore = new TeamStore()

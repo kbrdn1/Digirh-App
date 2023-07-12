@@ -109,11 +109,15 @@ class AuthStore {
       return
     }
     await axios
-      .post(`${api_url}/token/verify`, { jwt: token }, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      .post(
+        `${api_url}/token/verify`,
+        { jwt: token },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
+      )
       .catch((err) => {
         if (err.response && err.response.status === 401) {
           this.removeJwt()
