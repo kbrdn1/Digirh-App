@@ -2,6 +2,8 @@ import ProfileCard from '@components/Cards/Profile'
 import BtnPrimary from '@components/Buttons/Primary'
 import BtnSecondary from '@components/Buttons/Secondary'
 import Card from '@components/Cards/Default'
+import TeamContext from '@contexts/Team'
+import teamStore from '@stores/Team'
 
 const Absence = () => {
   return (
@@ -35,30 +37,32 @@ const Frais = () => {
 
 const Profile = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-5">
-      <div className="flex flex-col gap-5 w-full lg:w-1/2">
-        <ProfileCard
-          full
-          footer={<BtnPrimary content="Modifier les informations" />}
-        />
-        <Card
-          full
-          title="Demandes d’absences"
-          footer={<BtnSecondary content="Faire une demande" />}
-        >
-          <Absence />
-        </Card>
+    <TeamContext.Provider value={teamStore}>
+      <div className="flex flex-col lg:flex-row gap-5">
+        <div className="flex flex-col gap-5 w-full lg:w-1/2">
+          <ProfileCard
+            full
+            footer={<BtnPrimary content="Modifier les informations" />}
+          />
+          <Card
+            full
+            title="Demandes d’absences"
+            footer={<BtnSecondary content="Faire une demande" />}
+          >
+            <Absence />
+          </Card>
+        </div>
+        <div className="flex flex-col gap-5 lg:w-1/2">
+          <Card
+            full
+            title="Demandes de frais de déplacement"
+            footer={<BtnSecondary content="Faire une demande" />}
+          >
+            <Frais />
+          </Card>
+        </div>
       </div>
-      <div className="flex flex-col gap-5 lg:w-1/2">
-        <Card
-          full
-          title="Demandes de frais de déplacement"
-          footer={<BtnSecondary content="Faire une demande" />}
-        >
-          <Frais />
-        </Card>
-      </div>
-    </div>
+    </TeamContext.Provider>
   )
 }
 
