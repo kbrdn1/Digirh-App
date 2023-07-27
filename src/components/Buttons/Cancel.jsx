@@ -10,7 +10,7 @@ const Cancel = ({
 }) => {
   return (
     <button
-      className={`text-red-3 border border-x-red-600 font-bold font-franklin rounded-lg bg-transparent hover:bg-red-4 disabled:grayscale duration-200 py-2 px-7 flex justify-center items-center gap-[8px] ${
+      className={`text-gray border border-gray font-bold font-nunito rounded-lg bg-transparent hover:border-danger hover:bg-red-50 hover:text-danger disabled:grayscale duration-200 py-2 px-7 flex justify-center items-center gap-2 ${
         full ? ' w-full' : 'w-fit'
       }`}
       disabled={disabled ? disabled : false}

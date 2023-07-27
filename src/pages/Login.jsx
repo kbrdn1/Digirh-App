@@ -5,15 +5,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import AuthContext from '@contexts/Auth.jsx'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import ToastError from '@components/Toasts/Error'
 
 const Login = () => {
-  const navigate = useNavigate()
-  const authStore = useContext(AuthContext)
+  const navigate = useNavigate(),
+    authStore = useContext(AuthContext),
 
-  const emailRef = useRef('')
-  const passwordRef = useRef('')
-  const errorRef = useRef(null)
-  const [isLoading, setIsLoading] = useState(false)
+    emailRef = useRef(''),
+    passwordRef = useRef(''),
+    errorRef = useRef(null),
+    [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -21,14 +22,14 @@ const Login = () => {
     setIsLoading(true)
 
     const data = {
-      username: emailRef.current,
-      password: passwordRef.current,
+      username: emailRef.current.value,
+      password: passwordRef.current.value,
     }
 
     await authStore.login(data)
 
     if (authStore.user && authStore.jwt) {
-      navigate('/Digirh-App/', { replace: true })
+      navigate('/', { replace: true })
     } else {
       errorRef.current = 'Identifiants incorrects'
     }
@@ -36,10 +37,10 @@ const Login = () => {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row w-full">
+    <div className="flex flex-col lg:flex-row w-full min-h-screen">
       <div className="bg-black w-full lg:h-screen lg:w-1/2 xl:w-1/4 flex items-center justify-center py-4">
         <img
-          className="h-1/4 hidden lg:block"
+          className="h-1/4 p-4 hidden lg:block"
           src="/Digirh-App/logo/logo_text_light.svg"
           alt="logo-DIGIRH"
         />
@@ -49,7 +50,7 @@ const Login = () => {
           alt="logo-DIGIRH"
         />
       </div>
-      <section className="bg-white w-full lg:h-screen lg:w-1/2 xl:w-3/4 flex flex-col items-center justify-center py-4">
+      <section className="w-full lg:h-screen lg:w-1/2 xl:w-3/4 flex flex-col items-center justify-center py-4">
         <div className="font-nunito w-full xl:w-1/2 flex flex-col items-center gap-5 lg:mx-auto">
           <h1 className="font-franklin font-bold text-4xl w-fit bg-clip-text text-transparent bg-gradient-to-tr from-primary to-primary-5">
             Connexion
@@ -67,7 +68,7 @@ const Login = () => {
                 required
                 autoComplete="email"
                 autoFocus
-                onChangeValue={(value) => (emailRef.current = value)}
+                onRef={emailRef}
               />
               <Input
                 type="password"
@@ -75,14 +76,12 @@ const Login = () => {
                 id="password"
                 placeholder="Mot de passe"
                 required
-                onChangeValue={(value) => (passwordRef.current = value)}
+                onRef={passwordRef}
                 autoComplete="password"
               />
             </div>
             {errorRef.current && (
-              <p className="text-danger text-center font-semibold">
-                {errorRef.current}
-              </p>
+              <ToastError text={errorRef.current} onClose={() => errorRef.current = null} />
             )}
             <ButtonPrimary
               type="submit"

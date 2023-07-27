@@ -96,8 +96,8 @@ class TeamStore {
    **/
   async getAllTeams(userId) {
     try {
-      axios.get(api_url + '/team/' + userId).then((response) => {
-        this.teams = response.data
+      axios.get(api_url + '/team/' + userId).then((res) => {
+        this.setTeams(res.data)
       })
     } catch (error) {
       console.log(error)
@@ -111,7 +111,15 @@ class TeamStore {
    * @async
    * @method
    **/
-  async getTeamById(id) { }
+  async getTeamById(id) {
+    try {
+      axios.get(api_url + '/team/' + id).then((res) => {
+        this.setTeam(res.data)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 const teamStore = new TeamStore()

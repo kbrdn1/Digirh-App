@@ -8,6 +8,7 @@ import Logout from '@pages/Logout.jsx'
 import NotFound from '@pages/404.jsx'
 import Error from '@pages/500.jsx'
 import Teams from '@pages/Teams.jsx'
+import Profile from '@pages/Profile.jsx'
 
 const router = createHashRouter([
   {
@@ -24,13 +25,12 @@ const router = createHashRouter([
         errorElement: <Error />,
       },
       {
-        path: '/login',
-        element:
-          authStore.jwt && authStore.user ? (
-            <Navigate to="/" replace />
-          ) : (
-            <Login />
-          ),
+        path: '/profile',
+        element: (
+          <AuthGuard>
+            <Profile />
+          </AuthGuard>
+        ),
         errorElement: <Error />,
       },
       {
@@ -53,6 +53,12 @@ const router = createHashRouter([
         errorElement: <Error />,
       },
     ],
+  },
+  {
+    path: '/login',
+    element:
+      authStore.jwt && authStore.user ? <Navigate to="/" replace /> : <Login />,
+    errorElement: <Error />,
   },
 ])
 

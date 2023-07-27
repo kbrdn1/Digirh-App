@@ -18,7 +18,8 @@ export default defineConfig({
       '@hooks': '/src/hooks',
       '@stores': '/src/stores',
       '@contexts': '/src/contexts',
-      '@router': '/src/router'
+      '@router': '/src/router',
+      '@public': '/public'
     }
   },
   base: "/Digirh-App/",

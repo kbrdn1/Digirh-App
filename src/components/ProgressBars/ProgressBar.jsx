@@ -1,5 +1,3 @@
-
-
 const ProgressBar = ({ progress }) => {
   let progressColor = 'bg-primary'
   if (progress > 100) {
@@ -18,7 +16,7 @@ const ProgressBar = ({ progress }) => {
 
   return (
     <div>
-      <span className='text-xs text-gray'>{progress + '%'}</span>
+      <span className="text-xs text-gray">{progress + '%'}</span>
       <div className="bg-light-2 relative h-1 w-full rounded-2xl">
         <div
           className={`${progressColor} absolute top-0 left-0 flex h-1 items-center justify-center rounded-2xl text-xs font-semibold text-white font-nunito`}
