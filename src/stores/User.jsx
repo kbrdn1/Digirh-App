@@ -1,6 +1,7 @@
 import makeInspectable from 'mobx-devtools-mst'
 import { makeAutoObservable } from 'mobx'
 import axios from 'axios'
+import authStore from './Auth'
 
 // API URL
 const api_url = import.meta.env.VITE_API_URL
@@ -104,6 +105,39 @@ class UserStore {
    * @method
    **/
   async getUserById(id) {}
+
+  /**
+   * @param {object} data
+   * @returns {void}
+   * @description Updates a user profile
+   * @async
+   * @method
+   * */
+  async updateUserProfile(id, data) {
+    const token = authStore.getJwt()
+
+    await axios
+      .patch(`${api_url}/user/edit/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        const currentUser = authStore.getUser()
+        const userUpdated = {
+          ...currentUser,
+          name: res.data.name,
+          firstname: res.data.firstname,
+          email: res.data.email,
+          phone: res.data.phone,
+        }
+        this.setUser(userUpdated)
+        authStore.setUser(userUpdated)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
 
 const userStore = new UserStore()

@@ -6,7 +6,7 @@ const TeamTableBadge = ({ teamName, color }) => {
     .join('')
 
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex items-center gap-5 w-fit">
       <div
         className={`w-10 h-10 rounded-md text-white flex items-center justify-center`}
         style={{ backgroundColor: color }}

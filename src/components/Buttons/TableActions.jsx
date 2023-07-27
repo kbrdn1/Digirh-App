@@ -1,5 +1,10 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisVertical, faEye, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEllipsisVertical,
+  faEye,
+  faPenToSquare,
+  faTrashCan,
+} from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -18,7 +23,7 @@ const TableActions = () => {
         icon={faEllipsisVertical}
         className={`cursor-pointer py-1 px-3 rounded-lg ${
           isOpen ? 'bg-primary-3 text-white' : 'text-gray-5'
-        } duration-200 ease-out table-actions`}
+        } duration-200 ease-out table-actions hover:bg-primary-3 hover:text-white`}
         onClick={() => setIsOpen(!isOpen)}
         size="lg"
       />

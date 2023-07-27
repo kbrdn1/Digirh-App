@@ -1,19 +1,16 @@
-import Image from 'next/image'
+import authStore from '@stores/Auth'
+import teamStore from '@stores/Team'
+import { observer } from 'mobx-react'
+import { useEffect } from 'react'
+import TeamTableBadge from '@components/Tables/TeamTableBadge'
 
-const Profile = ({
-  avatar,
-  firstname,
-  lastname,
-  email,
-  phone,
-  fonction,
-  roles,
-  status,
-  teams,
-  hireDate,
-  footer,
-  full,
-}) => {
+const Profile = observer(({ footer, full }) => {
+  const user = authStore.user
+  const avatar = true
+
+  useEffect(() => {
+    teamStore.getTeamById(user.team.id)
+  }, [user.team.id])
   return (
     <div
       className={`relative bg-white shadow-xl font-nunito flex flex-col rounded-[12px] ${
@@ -21,26 +18,28 @@ const Profile = ({
       }`}
     >
       {avatar && (
-        <Image
-          className="absolute -top-[25px] left-[25px] w-[100px] rounded-[10px]"
-          src={avatar || '/avatar.png'}
-          alt="profile-pic"
-        />
+        <div className="md:absolute mx-auto md:-top-[25px] md:left-[25px] rounded-[10px] w-fit overflow-hidden border-3 shadow-md">
+          <img
+            className="w-[100px]"
+            src='/avatar.png'
+            alt="profile-pic"
+          />
+        </div>
       )}
       <div
-        className={`p-[20px] flex items-center gap-[8px] justify-between w-full border-b border-light-2 ${
-          avatar ? 'pl-[150px]' : null
+        className={`p-[20px] flex flex-col-reverse md:flex-row items-center gap-[8px] justify-between w-full border-b border-light-2 ${
+          avatar ? 'md:pl-[150px]' : null
         }`}
       >
-        <div className="text-black text-[2rem]">
-          {firstname + ' ' + lastname}
+        <div className="text-black text-[2rem] text-center">
+          {user.firstname + ' ' + user.name}
         </div>
         <div
           className={`text-white font-medium font-franklin text-[11px] py-[4px] px-[8px] h-fit uppercase w-fit flex items-center rounded-[10px] ${
-            status ? 'bg-valid' : 'bg-danger'
+            user.statut.name_statut === 'Présent' ? 'bg-valid' : 'bg-danger'
           }`}
         >
-          {status ? 'Présent' : 'Absent'}
+          {user.statut.name_statut === 'Présent' ? 'Présent' : 'Absent'}
         </div>
       </div>
       <div
@@ -51,27 +50,31 @@ const Profile = ({
         <div className="font-franklin text-gray-2 text-[1rem] font-bold">
           Fonction
         </div>
-        <div className="text-black text-[1rem] text-gray-4">{fonction}</div>
+        <div className="text-black text-[1rem] text-gray-4">
+          {user.fonction}
+        </div>
         <div className="font-franklin text-gray-2 text-[1rem] font-bold">
           Rôle
         </div>
         <div className="text-black text-[1rem] text-gray-4">
-          {roles.map((role) => role + ', ')}
+          {user.roles.map((role) => {
+            if (role === 'ROLE_SUPER_ADMIN') return 'Super Administrateur '
+            if (role === 'ROLE_ADMIN') return 'Administrateur '
+            if (role === 'ROLE_USER') return 'Collaborateur '
+          })}
         </div>
       </div>
       <div className="py-[20px] pl-[40px] pr-[20px] flex flex-col gap-[8px] w-full border-b border-light-2">
         <div className="font-franklin text-gray-2 text-[1rem] font-bold">
-          Equipes
+          Equipe
         </div>
         <div className="grid gap-[10px] grid-cols-2">
-          {teams.map((team, key) => (
-            <div
-              className="text-black text-[1rem] font-bold flex gap-[1rem] items-center"
-              key={key}
-            >
-              {team}
-            </div>
-          ))}
+          {teamStore.team && (
+            <TeamTableBadge
+              teamName={teamStore.team.name_team}
+              color={teamStore.team.color}
+            />
+          )}
         </div>
       </div>
       <div className="py-[20px] pl-[40px] pr-[20px] flex flex-col gap-[8px] w-full border-b border-light-2">
@@ -80,11 +83,11 @@ const Profile = ({
         </div>
         <div className="flex items-center gap-[8px] text-gray-4">
           <p className="font-bold text-black">E-mail:</p>
-          {email}
+          {user.email}
         </div>
         <div className="flex items-center gap-[8px] text-gray-4">
           <p className="font-bold text-black">Téléphone:</p>
-          {phone}
+          {user.phone}
         </div>
       </div>
       <div className="py-[20px] pl-[40px] pr-[20px] flex flex-col gap-[8px] w-full border-b border-light-2">
@@ -93,16 +96,16 @@ const Profile = ({
         </div>
         <div className="flex items-center gap-[8px] text-gray-4">
           <p className="font-bold text-black">Date:</p>
-          {hireDate}
+          {user.hiring_date.split('-').join('/')}
         </div>
       </div>
       {footer && (
-        <div className="w-full py-[20px] px-[40px] gap-[24px] border-t border-light-2">
+        <div className="w-full py-[20px] px-3 md:px-[40px] gap-[24px] border-t border-light-2 duration-200 ease-out">
           {footer}
         </div>
       )}
     </div>
   )
-}
+})
 
 export default Profile

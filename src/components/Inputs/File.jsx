@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const File = ({
   accept,
   disabled,
@@ -7,7 +9,7 @@ const File = ({
   autofocus,
   handleValue,
 }) => {
-  const [file, setFile] = React.useState(null)
+  const [file, setFile] = useState(null)
 
   const handleFile = (e) => {
     const file = e.target.files
