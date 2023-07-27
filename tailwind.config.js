@@ -9,7 +9,7 @@ module.exports = {
     './src/stores/**/*.{js,ts,jsx,tsx,mdx}',
     './src/contexts/**/*.{js,ts,jsx,tsx,mdx}',
     './src/router/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/**/*.{js,ts,jsx,tsx,mdx}'
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -33,12 +33,12 @@ module.exports = {
         'gray-3': '#616161',
         'gray-4': '#546E7A',
         'gray-5': '#78909C',
-        'red-1': '#A61212',
-        'red-2': '#B84141',
-        'red-3': '#FF2C1D',
-        'red-4': '#650D0D',
-        'green-1': '#4CB74C',
-        'green-2': '#8DD18D',
+        'danger-2': '#A61212',
+        'danger-3': '#B84141',
+        'danger-4': '#FF2C1D',
+        'danger-5': '#650D0D',
+        'valid-2': '#4CB74C',
+        'valid-3': '#8DD18D',
       },
       fontFamily: {
         franklin: 'Libre Franklin',

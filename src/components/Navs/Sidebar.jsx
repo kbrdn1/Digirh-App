@@ -61,12 +61,18 @@ const Sidebar = observer(() => {
     }
   })
 
+  window.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('profile-action')) {
+      setOpenOption(false)
+    }
+  })
+
   if (!authStore.user && !authStore.jwt) return null
 
   return (
     <>
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 font-nunito ${
+        className={`fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-20 font-nunito ${
           isOpen ? 'block' : 'hidden'
         }`}
         onClick={() => setIsOpen(false)}
@@ -84,13 +90,13 @@ const Sidebar = observer(() => {
         />
       </button>
       <aside
-        className={`h-screen lg:h-[calc(100vh-40px)] w-[calc(100vw-4rem)] fixed z-10 bg-black flex flex-col justify-between gap-2 rounded-xl lg:rounded-l-xl rounded-l-none lg:w-[256px] duration-300 ease-out lg:translate-x-0 left-0 top-0 lg:left-4 lg:top-4 ${
+        className={`h-screen lg:h-[calc(100vh-40px)] w-[calc(100vw-4rem)] fixed z-50 bg-black flex flex-col justify-between gap-2 rounded-xl lg:rounded-l-xl rounded-l-none lg:w-[256px] duration-300 ease-out lg:translate-x-0 left-0 top-0 lg:left-4 lg:top-4 ${
           !isOpen ? '-translate-x-full' : 'translate-x-0'
         }`}
       >
         <Link
           to="/"
-          className="w-full py-[22px] flex items-center justify-center border-b border-primary"
+          className="w-full py-[22px] flex items-center justify-center border-b border-primary fixed"
         >
           <img
             src="/Digirh-App/logo/logo_h_light.svg"
@@ -98,7 +104,7 @@ const Sidebar = observer(() => {
             className="w-[146px]"
           />
         </Link>
-        <div className="h-full">
+        <div className="h-full mt-20 py-4 overflow-y-scroll">
           <div className="w-full flex flex-col px-4 gap-1">
             <Items content="Tableau de bord" full iconLeft={faHouse} link="/" />
             <Items
@@ -148,11 +154,13 @@ const Sidebar = observer(() => {
           </div>
         </div>
         <div className="relative w-full py-6 px-4 flex items-center justify-between border-t border-primary">
-          <img
-            src="/Digirh-App/avatar.png"
-            alt="avatar"
-            className="h-10 border rounded-full border-secondary"
-          />
+          <Link to="/profile">
+            <img
+              src="/Digirh-App/avatar.png"
+              alt="avatar"
+              className="h-10 border rounded-full border-secondary"
+            />
+          </Link>
           <div className="flex flex-col">
             <p className="text-white font-franklin text-sm font-medium">
               {authStore.user.firstname} {authStore.user.name}
@@ -161,13 +169,12 @@ const Sidebar = observer(() => {
               {authStore.user.email}
             </p>
           </div>
-          <div className="px-1" onClick={() => setOpenOption(!openOption)}>
-            <FontAwesomeIcon
-              icon={faEllipsisVertical}
-              className="text-gray"
-              size="xl"
-            />
-          </div>
+          <FontAwesomeIcon
+            icon={faEllipsisVertical}
+            className="text-gray profile-action px-2 py-1 cursor-pointer"
+            size="xl"
+            onClick={() => setOpenOption(!openOption)}
+          />
           <div
             className={`absolute -top-full -translate-y-1/4 right-1/2 translate-x-1/2 z-10 w-11/12 bg-black rounded-lg border border-primary flex flex-col gap-2 justify-between p-4 ${
               openOption ? 'block' : 'hidden'

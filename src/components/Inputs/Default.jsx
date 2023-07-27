@@ -1,4 +1,5 @@
 const Default = ({
+  defaultValue,
   type,
   placeholder,
   disabled,
@@ -7,10 +8,8 @@ const Default = ({
   required,
   autofocus,
   onChangeValue,
+  onRef
 }) => {
-  const handleValue = (e) => {
-    onChangeValue(e.target.value)
-  }
 
   return (
     <input
@@ -23,7 +22,9 @@ const Default = ({
       autoComplete={autocomplete ? autocomplete : null}
       required={required ? required : false}
       autoFocus={autofocus ? autofocus : false}
-      onChange={handleValue}
+      onChange={onChangeValue}
+      ref={onRef}
+      {...(defaultValue && { defaultValue })}
     />
   )
 }

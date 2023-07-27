@@ -1,4 +1,3 @@
-import avatar from '@public/avatar.png'
 import authStore from '@stores/Auth'
 import teamStore from '@stores/Team'
 import { observer } from 'mobx-react'
@@ -7,6 +6,7 @@ import TeamTableBadge from '@components/Tables/TeamTableBadge'
 
 const Profile = observer(({ footer, full }) => {
   const user = authStore.user
+  const avatar = true
 
   useEffect(() => {
     teamStore.getTeamById(user.team.id)
@@ -18,20 +18,20 @@ const Profile = observer(({ footer, full }) => {
       }`}
     >
       {avatar && (
-        <div className="absolute -top-[25px] left-[25px] rounded-xl overflow-hidden border-3">
+        <div className="md:absolute mx-auto md:-top-[25px] md:left-[25px] rounded-[10px] w-fit overflow-hidden border-3 shadow-md">
           <img
             className="w-[100px]"
-            src={avatar || '/Digirh-App/avatar.png'}
+            src='/avatar.png'
             alt="profile-pic"
           />
         </div>
       )}
       <div
-        className={`p-[20px] flex items-center gap-[8px] justify-between w-full border-b border-light-2 ${
-          avatar ? 'pl-[150px]' : null
+        className={`p-[20px] flex flex-col-reverse md:flex-row items-center gap-[8px] justify-between w-full border-b border-light-2 ${
+          avatar ? 'md:pl-[150px]' : null
         }`}
       >
-        <div className="text-black text-[2rem]">
+        <div className="text-black text-[2rem] text-center">
           {user.firstname + ' ' + user.name}
         </div>
         <div
@@ -100,7 +100,7 @@ const Profile = observer(({ footer, full }) => {
         </div>
       </div>
       {footer && (
-        <div className="w-full py-[20px] px-[40px] gap-[24px] border-t border-light-2">
+        <div className="w-full py-[20px] px-3 md:px-[40px] gap-[24px] border-t border-light-2 duration-200 ease-out">
           {footer}
         </div>
       )}

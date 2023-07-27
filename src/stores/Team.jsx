@@ -97,7 +97,7 @@ class TeamStore {
   async getAllTeams(userId) {
     try {
       axios.get(api_url + '/team/' + userId).then((res) => {
-        this.teams = res.data
+        this.setTeams(res.data)
       })
     } catch (error) {
       console.log(error)

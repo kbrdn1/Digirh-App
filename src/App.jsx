@@ -8,7 +8,7 @@ const App = () => {
   return (
     <AuthContext.Provider value={authStore}>
       <Sidebar />
-      <main className="lg:ml-[calc(256px+20px)] py-4 px-4">
+      <main className="lg:ml-[276px] py-4 px-4 pt-24 duration-200 ease-out">
         <Tabbar />
         <Outlet />
       </main>

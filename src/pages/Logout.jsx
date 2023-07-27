@@ -1,6 +1,5 @@
-import { useContext, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import AuthContext from '@contexts/Auth.jsx'
 import authStore from '@stores/Auth.jsx'
 
 const Logout = () => {

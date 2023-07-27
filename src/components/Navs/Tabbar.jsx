@@ -23,7 +23,7 @@ const Tabbar = observer(() => {
   if (!authStore.user && !authStore.jwt) return null
 
   return (
-    <div className="sticky bg-white flex items-center justify-between py-[8px] px-[16px] ml-16 md:ml-0 mb-5 rounded-lg shadow-sm duration-300 ease-out">
+    <div className="fixed bg-white flex items-center justify-between py-[8px] px-[16px] ml-16 lg:ml-0 mb-5 rounded-lg shadow-sm duration-300 ease-out top-4 z-10 w-[calc(100%-6rem)] lg:w-[calc(100%-2rem-276px)]">
       <div className="flex flex-col gap-1">
         <div className="text-sm text-black">
           <span className="opacity-50 text-gray">Dashboard</span>

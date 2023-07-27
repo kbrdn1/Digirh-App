@@ -6,7 +6,6 @@ import axios from 'axios'
 
 axios.interceptors.request.use(
   (config) => {
-    console.log(config.headers)
     config.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`
     return config
   },

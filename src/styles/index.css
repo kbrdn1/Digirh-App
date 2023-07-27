@@ -10,16 +10,33 @@ aside {
   height: calc(100vh - 40px);
 }
 
-@media screen and (max-width: 768px) {
-  aside {
-    width: ;
-  }
-}
-
 .active {
   @apply text-secondary !important;
   @apply outline-secondary;
   @apply outline;
   @apply outline-1;
 
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  @apply w-[5px];
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-black
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-secondary;
+  @apply rounded-full;
+  @apply transition-all;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-secondary-2;
+}
+
+* {
+  scroll-behavior: smooth;
 }
