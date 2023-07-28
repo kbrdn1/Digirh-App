@@ -14,7 +14,7 @@ const Default = ({ title, description, children, footer, full }) => {
       <div className="w-full py-[24px] px-[40px] text-gray font-semibold">
         {children}
       </div>
-      <div className="w-full py-[20px] px-[40px] gap-[24px] border-t border-light-2">
+      <div className="flex flex-col sm:flex-row w-full py-5 px-3 sm:px-10 gap-3 border-t border-light-2">
         {footer}
       </div>
     </div>

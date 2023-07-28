@@ -10,8 +10,8 @@ const Tertiary = ({
 }) => {
   return (
     <button
-      className={`text-primary font-bold font-nunito rounded-lg border-2 border-primary hover:bg-black disabled:bg-transparent disabled:grayscale duration-200 py-2 px-7 flex justify-center items-center gap-[8px] ${
-        full ? ' w-full' : 'w-fit'
+      className={`text-primary font-bold font-franklin rounded-lg border-2 border-primary hover:bg-black disabled:bg-transparent disabled:grayscale duration-200 py-2 px-7 flex justify-center items-center gap-2 w-full ${
+        full ? ' w-full' : 'sm:w-fit'
       }`}
       disabled={disabled ? disabled : false}
       onClick={onClickAction}

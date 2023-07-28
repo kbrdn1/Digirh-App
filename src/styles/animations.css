@@ -1,0 +1,15 @@
+/* Toasts Animation */
+.toast-anim {
+  animation: toast-fade-in-right 0.7s;
+}
+
+@keyframes toast-fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

@@ -100,7 +100,7 @@ const Profile = observer(({ footer, full }) => {
         </div>
       </div>
       {footer && (
-        <div className="w-full py-[20px] px-3 md:px-[40px] gap-[24px] border-t border-light-2 duration-200 ease-out">
+        <div className="w-full py-5 px-3 sm:px-10 gap-[24px] border-t border-light-2 duration-200 ease-out">
           {footer}
         </div>
       )}

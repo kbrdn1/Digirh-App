@@ -154,14 +154,14 @@ const Sidebar = observer(() => {
           </div>
         </div>
         <div className="relative w-full py-6 px-4 flex items-center justify-between border-t border-primary">
-          <Link to="/profile">
+          <Link to="/profile" className='w-10 h-10 min-w-[40px]'>
             <img
               src="/Digirh-App/avatar.png"
               alt="avatar"
-              className="h-10 border rounded-full border-secondary"
+              className="h-10 w-10 border rounded-full border-secondary"
             />
           </Link>
-          <div className="flex flex-col">
+          <div className="flex flex-col lg:max-w-[150px] overflow-hidden">
             <p className="text-white font-franklin text-sm font-medium">
               {authStore.user.firstname} {authStore.user.name}
             </p>
