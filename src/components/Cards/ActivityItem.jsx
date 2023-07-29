@@ -6,7 +6,7 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 
-const Activity = ({ notification }) => {
+const ActivityItem = ({ notification }) => {
   const { type, data, date_notif } = notification
 
   if (type === 'trip') {
@@ -106,4 +106,4 @@ const Activity = ({ notification }) => {
   }
 }
 
-export default Activity
+export default ActivityItem

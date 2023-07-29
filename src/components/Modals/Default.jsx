@@ -21,7 +21,7 @@ const Default = ({
           >
             <div className="gap-3 text-[14px] flex flex-col pb-5 px-[50px]">
               {children}
-              {error && <ToastError text={error} />}
+              {error && <ToastError message={error} />}
             </div>
 
             <div className="border-t border-light-2 flex py-5 px-3 sm:px-10 gap-2 justify-end flex-col-reverse sm:flex-row">
