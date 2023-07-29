@@ -10,7 +10,7 @@ const Teams = observer(() => {
   useEffect(() => {
     teamStore.getAllTeams(authStore.getUser().id)
   }, [authStore, teamStore])
-  return <div className="px-5">{teams && <TeamTable />}</div>
+  return <div>{teams && <TeamTable />}</div>
 })
 
 export default Teams
