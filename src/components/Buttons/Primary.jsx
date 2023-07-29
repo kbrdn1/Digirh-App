@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Primary = ({
-  content,
+  children,
   iconLeft,
   iconRight,
   disabled,
@@ -19,7 +19,7 @@ const Primary = ({
       onClick={onClickAction}
     >
       {iconLeft && <FontAwesomeIcon icon={iconLeft} />}
-      {content}
+      {children}
       {iconRight && <FontAwesomeIcon icon={iconRight} spinPulse={iconSpin} />}
     </button>
   )

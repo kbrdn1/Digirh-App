@@ -1,12 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Accept = ({
-  content,
+const Confirm = ({
+  children,
   iconLeft,
   iconRight,
   disabled,
   full,
   onClickAction,
+  iconSpin,
 }) => {
   return (
     <button
@@ -17,10 +18,10 @@ const Accept = ({
       onClick={onClickAction}
     >
       {iconLeft && <FontAwesomeIcon icon={iconLeft} />}
-      {content}
-      {iconRight && <FontAwesomeIcon icon={iconRight} />}
+      {children}
+      {iconRight && <FontAwesomeIcon icon={iconRight} spinPulse={iconSpin} />}
     </button>
   )
 }
 
-export default Accept
+export default Confirm

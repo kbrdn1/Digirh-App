@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Secondary = ({
-  content,
+  children,
   iconLeft,
   iconRight,
   disabled,
@@ -17,7 +17,7 @@ const Secondary = ({
       onClick={onClickAction}
     >
       {iconLeft && <FontAwesomeIcon icon={iconLeft} />}
-      {content}
+      {children}
       {iconRight && <FontAwesomeIcon icon={iconRight} />}
     </button>
   )
