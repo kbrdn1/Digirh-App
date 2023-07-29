@@ -8,6 +8,8 @@ const File = ({
   required,
   autofocus,
   handleValue,
+  onRef,
+  defaultValue
 }) => {
   const [file, setFile] = useState(null)
 
@@ -30,6 +32,8 @@ const File = ({
       multiple={multiple ? multiple : false}
       required={required ? required : false}
       autoFocus={autofocus ? autofocus : false}
+      ref={onRef}
+      defaultValue={defaultValue}
     />
   )
 }

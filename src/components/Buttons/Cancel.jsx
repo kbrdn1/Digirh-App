@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Cancel = ({
-  content,
+  children,
   iconLeft,
   iconRight,
   disabled,
@@ -10,14 +10,14 @@ const Cancel = ({
 }) => {
   return (
     <button
-      className={`text-gray border border-gray font-bold font-nunito rounded-lg bg-transparent hover:border-danger hover:bg-red-50 hover:text-danger disabled:grayscale duration-200 py-2 px-7 flex justify-center items-center gap-2 ${
-        full ? ' w-full' : 'w-fit'
+      className={`text-gray border border-gray font-bold font-franklin rounded-lg bg-transparent hover:border-danger hover:bg-red-50 hover:text-danger disabled:grayscale duration-200 py-2 px-7 flex justify-center items-center gap-2 w-full ${
+        full ? ' w-full' : 'sm:w-fit'
       }`}
       disabled={disabled ? disabled : false}
       onClick={onClickAction}
     >
       {iconLeft && <FontAwesomeIcon icon={iconLeft} />}
-      {content}
+      {children}
       {iconRight && <FontAwesomeIcon icon={iconRight} />}
     </button>
   )

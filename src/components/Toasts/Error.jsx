@@ -1,19 +1,29 @@
 import { faCircleExclamation, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import toastStore from '@stores/Toast'
 
-const Error = ({ text, onClose, fixed }) => {
+const Error = ({ message, close, animation }) => {
+
+  const handleClose = () => {
+    document.querySelector('.toast-error').classList.remove('toast-anim')
+    document.querySelector('.toast-error').classList.add('toast-anim-out')
+    setTimeout(() => {
+      toastStore.removeToast()
+    }, 700)
+  }
+
   return (
     <div
-      className={`${
-        fixed ? 'fixed bottom-4 right-4' : null
-      } bg-danger-2 hover:bg-danger-3 text-white font-semibold text-sm rounded-lg border shadow-lg p-4 flex gap-2 items-center duration-200 ease-out justify-between`}
+      className={`toast-error ${
+        animation ? 'toast-anim' : null
+        } bg-danger-2 hover:bg-danger-3 text-white font-semibold text-sm rounded-lg shadow-lg p-4 flex gap-2 items-center duration-200 ease-out justify-between`}
     >
       <FontAwesomeIcon icon={faCircleExclamation} beat />
       <div className="self-center">{text}</div>
-      {onClose && (
+      {close && (
         <FontAwesomeIcon
           icon={faXmark}
-          onClick={onClose}
+          onClick={handleClose}
           className="cursor-pointer text-lg hover:text-slate-400 duration-200 ease-out"
         />
       )}
