@@ -42,7 +42,7 @@ const TeamTable = () => {
   }
 
   return (
-    <div className={`relative w-full mt-20 font-franklin`}>
+    <div className="relative w-full font-franklin">
       <h1 className="w-[calc(100%-2rem)] mx-auto absolute -top-6 inset-x-0 bg-gradient-to-r from-primary to-primary-5 p-5 rounded-xl text-white items-center justify-start hidden shadow-xl sm:flex font-semibold font-franklin">
         Equipes
       </h1>

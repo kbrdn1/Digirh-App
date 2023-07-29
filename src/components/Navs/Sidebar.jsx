@@ -181,15 +181,17 @@ const Sidebar = observer(() => {
             }`}
           >
             <BtnSecondary
-              content="Profil"
               full
               onClickAction={() => navigate('/profile')}
-            />
+            >
+              Mon profil
+            </BtnSecondary>
             <BtnDanger
-              content="Déconnexion"
               full
               onClickAction={() => navigate('/logout')}
-            />
+            >
+              Déconnexion
+            </BtnDanger>
           </div>
         </div>
       </aside>
