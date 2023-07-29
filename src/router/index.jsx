@@ -1,14 +1,17 @@
 import { createHashRouter, Navigate } from 'react-router-dom'
-import App from '../App.jsx'
-import AuthGuard from './protect/AuthGuard.jsx'
-import authStore from '@stores/Auth.jsx'
-import Dashboard from '@pages/Dashboard.jsx'
-import Login from '@pages/Login.jsx'
-import Logout from '@pages/Logout.jsx'
-import NotFound from '@pages/404.jsx'
-import Error from '@pages/500.jsx'
-import Teams from '@pages/Teams.jsx'
-import Profile from '@pages/Profile.jsx'
+import App from '../App'
+import AuthGuard from './protect/AuthGuard'
+import authStore from '@stores/Auth'
+import Dashboard from '@pages/Dashboard'
+import Login from '@pages/Login'
+import Logout from '@pages/Logout'
+import NotFound from '@pages/404'
+import Error from '@pages/500'
+import Teams from '@pages/Teams'
+import Profile from '@pages/Profile'
+import Calendar from '@pages/Calendar'
+import Trips from '@pages/Trips'
+import Leaves from '@pages/Leaves'
 
 const router = createHashRouter([
   {
@@ -46,6 +49,31 @@ const router = createHashRouter([
           </AuthGuard>
         ),
         errorElement: <Error />,
+      },
+      {
+        path: '/calendar',
+        element: (
+          <AuthGuard>
+            <Calendar />
+          </AuthGuard>
+        ),
+        errorElement: <Error />,
+      },
+      {
+        path: '/trips',
+        element: (
+          <AuthGuard>
+            <Trips />
+          </AuthGuard>
+        ),
+      },
+      {
+        path: '/leaves',
+        element: (
+          <AuthGuard>
+            <Leaves />
+          </AuthGuard>
+        ),
       },
       {
         path: '*',

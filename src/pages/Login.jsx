@@ -89,8 +89,9 @@ const Login = () => {
               disabled={isLoading}
               iconRight={isLoading ? faSpinner : null}
               iconSpin={isLoading}
-              content={isLoading ? 'Connexion en cours ' : 'Se connecter'}
-            />
+            >
+              {isLoading ? 'Connexion en cours ' : 'Se connecter'}
+            </ButtonPrimary>
             <div className="flex gap-2 text-[14px] justify-center">
               <p className="text-gray-3">Vous n&rsquo;avez pas de compte ?</p>
               <Link to="/register" className="text-primary-5 font-bold">

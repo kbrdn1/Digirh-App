@@ -14,6 +14,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        black: '#170B30',
         light: '#F6F6F6',
         'light-2': '#ECEFF1',
         transparent: 'transparent',
@@ -25,20 +26,18 @@ module.exports = {
         'primary-hover': '#AD67F1',
         secondary: '#FFF438',
         'secondary-2': '#FFF76A',
-        black: '#170B30',
-        danger: '#A61212',
-        valid: '#4CB74C',
         gray: '#607D8B',
         'gray-2': '#B0BEC5',
         'gray-3': '#616161',
         'gray-4': '#546E7A',
         'gray-5': '#78909C',
+        valid: '#4CB74C',
+        'valid-2': '#8DCB8D',
+        danger: '#A61212',
         'danger-2': '#A61212',
         'danger-3': '#B84141',
         'danger-4': '#FF2C1D',
         'danger-5': '#650D0D',
-        'valid-2': '#4CB74C',
-        'valid-3': '#8DD18D',
       },
       fontFamily: {
         franklin: 'Libre Franklin',
