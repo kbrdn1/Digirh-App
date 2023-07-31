@@ -1,51 +1,128 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useRef, useState, useEffect } from 'react'
+import Modal from '@components/Modals/Default'
 import Input from '@components/Inputs/Default'
 import Label from '@components/Texts/Label'
-import Title from '@components/Modals/Title'
+import BtnConfirm from '@components/Buttons/Confirm'
+import BtnPrimary from '@components/Buttons/Primary'
+import BtnSecondary from '@components/Buttons/Secondary'
+import BtnCancel from '@components/Buttons/Cancel'
+import Textarea from '@components/Inputs/Textarea'
+import Checkbox from '@components/Inputs/Checkbox'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 
-const Team = ({
-  title,
-  name,
-  description,
-  min_person,
-  is_active,
-  footer,
-  color,
-  full,
-}) => {
+const Team = ({ team, primary, small }) => {
+  const nameRef = useRef(null),
+    descriptionRef = useRef(null),
+    minPersonRef = useRef(null),
+    isActiveRef = useRef(null),
+    [isLoading, setIsLoading] = useState(false),
+    [error, setError] = useState(null),
+    [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    open
+      ? (window.scrollTo(0, 0), (document.body.style.overflow = 'hidden'))
+      : (document.body.style.overflow = 'unset')
+    setError(null)
+  }, [open])
+
+  const handleSubmit = async () => {
+    setIsLoading(true)
+
+    // const data = {
+    //   name_team: nameRef.current.value,
+    //   description: descriptionRef.current.value,
+    //   min_person: minPersonRef.current.value,
+    //   is_active: isActiveRef.current.checked,
+    // }
+
+    // action via le store
+
+    // condition de succès ou d'erreur
+
+    setError('Une erreur est survenue, veuillez réessayer...')
+
+    setIsLoading(false)
+  }
+
   return (
-    <div
-      className={`relative bg-white shadow-xl rounded-[12px] ${
-        full ? 'w-full' : 'w-[436px]'
-      }`}
-    >
-      <Title color={color} title={title} />
-
-      <div className="text-gray-5  font-bold text-[11px] flex flex-col pt-[60px] ">
-        <div className="flex flex-col px-[50px] pb-5">
-          <Label text="NOM" />
-          <Input type="text" />
+    <>
+      {small ? (
+        <div
+          className="group flex items-center gap-3 cursor-pointer text-sm text-gray-5 hover:bg-primary-5 hover:text-white font-semibold px-4 py-2 duration-200 ease-out"
+          onClick={() => setOpen(true)}
+        >
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            className="group-hover:rotate-12 duration-200 ease-out"
+          />
+          <span>Editer</span>
         </div>
-
-        <div className="flex flex-col pb-5 px-[50px]">
-          <Label text="DESCRIPTION" />
-          <Input type="text" />
-        </div>
-
-        <div className="flex flex-col pb-5 px-[50px] pb-5 ">
-          <Label text="EFFECTIF MINIMUM" />
-          <Input type="number" />
-        </div>
-
-        <div className="text-[16px] text-gray-3 flex pb-8 px-[50px]">
-          <Input type="checkbox" />
-          <label className="pl-[8px] font-light">Equipe active</label>
-        </div>
-      </div>
-
-      <div className="w-full py-[20px] px-[40px] gap-[24px] border-t border-light-2">
-        {footer}
-      </div>
-    </div>
+      ) : primary ? (
+        <BtnPrimary onClickAction={() => setOpen(true)}>Editer</BtnPrimary>
+      ) : (
+        <BtnSecondary onClickAction={() => setOpen(true)}>
+          Faire une demande de déplacement
+        </BtnSecondary>
+      )}
+      {open && (
+        <Modal
+          onSubmitAction={handleSubmit}
+          title="Faire une demande de déplacement"
+          color="#5F4DEE"
+          full
+          error={error}
+          footer={
+            <>
+              <BtnCancel onClickAction={() => setOpen(false)}>
+                Annuler
+              </BtnCancel>
+              <BtnConfirm
+                disabled={isLoading}
+                iconRight={isLoading ? faSpinner : null}
+                iconSpin={isLoading}
+              >
+                {isLoading ? 'Traitement en cours...' : 'Confirmer'}
+              </BtnConfirm>
+            </>
+          }
+        >
+          <div className="font-franklin text-gray text-[1rem] font-bold">
+            Informations
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label text="Nom" />
+            <Input type="text" onRef={nameRef} defaultValue={team.name_team} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label text="Description" />
+            <Textarea onRef={descriptionRef} defaultValue={team.description} />
+          </div>
+          <div className="font-franklin text-gray text-[1rem] font-bold">
+            Effectif minimum
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 md:gap-2">
+            <Input
+              type="number"
+              onRef={minPersonRef}
+              defaultValue={team.min_person}
+            />
+          </div>
+          <div className="font-franklin text-gray text-[1rem] font-bold">
+            Etat
+          </div>
+          <div className="flex flex-col gap-2">
+            <Checkbox
+              onRef={isActiveRef}
+              defaultValue={team.is_active}
+              text="Actif"
+            />
+          </div>
+        </Modal>
+      )}
+    </>
   )
 }
 

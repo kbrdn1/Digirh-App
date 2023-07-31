@@ -41,15 +41,6 @@ const notificationStore = {
   ],
 }
 
-console.log(
-  notificationStore.notifications.map((notification) => {
-    return {
-      title: notification.type,
-      date: notification.date_notif,
-    }
-  })
-)
-
 const Calendar = () => {
   return (
     <div className="w-full h-full">

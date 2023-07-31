@@ -1,7 +1,6 @@
-import ProgressBar from '@components/ProgressBars/ProgressBar'
-import TeamTableBadge from './TeamTableBadge'
-import { useState } from 'react'
-import TableActions from '@components/Buttons/TableActions'
+import TeamRow from './TeamRow'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const items = [
   {
@@ -30,69 +29,44 @@ const items = [
   },
 ]
 
-const TeamTable = () => {
-  const [activeActions, setActiveActions] = useState(-1)
-
-  const toggleActions = (index) => {
-    if (activeActions === index) {
-      setActiveActions(-1)
-    } else {
-      setActiveActions(index)
-    }
-  }
-
+const TeamTable = ({ teams }) => {
   return (
     <div className="relative w-full font-franklin">
-      <h1 className="w-[calc(100%-2rem)] mx-auto absolute -top-6 inset-x-0 bg-gradient-to-r from-primary to-primary-5 p-5 rounded-xl text-white items-center justify-start hidden shadow-xl sm:flex font-semibold font-franklin">
+      <h1 className="w-[calc(100%-2rem)] mx-auto absolute -top-6 inset-x-0 bg-gradient-to-r from-primary to-primary-5 p-5 rounded-xl text-white items-center justify-start shadow-xl sm:flex font-semibold font-franklin">
         Equipes
       </h1>
-      <table className="w-full text-left h-full bg-white rounded-xl shadow-md">
-        <thead>
-          <tr className="font-normal text-gray-5 text-xs">
-            <th scope="col" className="px-6 pb-4 pt-14">
-              Equipes
-            </th>
-            <th scope="col" className="px-6 pb-4 pt-14">
-              Deplacements
-            </th>
-            <th scope="col" className="px-6 pb-4 pt-14">
-              Effectif
-            </th>
-            <th scope="col" className="px-6 pb-4 pt-14 text-right">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item, index) => (
-            <tr
-              key={index}
-              className={`border-t border-light-2 ${
-                activeActions === index ? 'bg-gray-1' : ''
-              }`}
-            >
-              <td className="px-6 py-4 min-w-[200px]">
-                <TeamTableBadge teamName={item.name} color={item.color} />
-              </td>
-              <td className="px-6 py-4 text-sm text-gray">
-                {item.tripExpenses.toLocaleString('fr-FR', {
-                  style: 'currency',
-                  currency: 'EUR',
-                })}
-              </td>
-              <td className="px-6 py-4">
-                <ProgressBar progress={item.progress} />
-              </td>
-              <td className="px-6 py-4 text-right w-8">
-                <TableActions
-                  active={activeActions === index}
-                  toggleActions={() => toggleActions(index)}
-                />
-              </td>
+      <div className="overflow-x-scroll">
+        <table className="w-full text-left h-full bg-white rounded-xl shadow-md">
+          <thead>
+            <tr className="font-normal text-gray-5 text-xs">
+              <th scope="col" className="px-6 pb-4 pt-14">
+                Equipes
+              </th>
+              <th scope="col" className="px-6 pb-4 pt-14">
+                Deplacements
+              </th>
+              <th scope="col" className="px-6 pb-4 pt-14">
+                Effectif
+              </th>
+              <th scope="col" className="px-6 pb-4 pt-14 text-right">
+                Actions
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {teams ? (
+              teams.map((team, index) => <TeamRow team={team} key={index} />)
+            ) : (
+              <tr className="border-t border-light-2 px-3">
+                <td className="px-6 py-4 text-sm text-gray flex items-center gap-2 font-semibold" width={'250px'}>
+                  Chargement des données
+                  <FontAwesomeIcon icon={faSpinner} spinPulse />
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

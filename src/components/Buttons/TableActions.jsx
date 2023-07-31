@@ -4,11 +4,14 @@ import {
   faEye,
   faPenToSquare,
   faTrashCan,
+  faLockOpen,
+  faLock,
 } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ModalTeam from '@components/Modals/Team'
 
-const TableActions = () => {
+const TableActions = ({ team }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   window.addEventListener('click', (e) => {
@@ -28,30 +31,53 @@ const TableActions = () => {
         size="lg"
       />
       <div
-        className={`bg-white divide-y divide-light-2 shadow-sm h-fit rounded-xl border border-light-2 overflow-hidden duration-200 ease-out ${
+        className={`bg-white divide-y divide-light-2 shadow-md h-fit rounded-xl border border-light-2 overflow-hidden duration-200 ease-out ${
           isOpen ? '' : 'hidden'
         } absolute top-6 -right-1 z-10`}
       >
         <Link
-          className="flex items-center gap-3 cursor-pointer text-sm text-gray-5 hover:bg-primary-5 hover:text-white font-semibold px-4 py-2 duration-200 ease-out"
-          to="#"
+          className="group flex items-center gap-3 cursor-pointer text-sm text-gray-5 hover:bg-primary-5 hover:text-white font-semibold px-4 py-2 duration-200 ease-out"
+          to={`/team/${team.id}`}
         >
-          <FontAwesomeIcon icon={faEye} />
-          <span href="#">Voir</span>
+          <FontAwesomeIcon
+            icon={faEye}
+            className="group-hover:rotate-12 duration-200 ease-out"
+          />
+          <span>Voir</span>
         </Link>
+        <ModalTeam team={team} small />
+        {team.isActive ? (
+          <Link
+            className="group flex items-center gap-3 cursor-pointer text-sm text-gray-5 hover:bg-amber-500 hover:text-white font-semibold px-4 py-2 duration-200 ease-out"
+            to="#"
+          >
+            <FontAwesomeIcon
+              icon={faLock}
+              className="group-hover:rotate-12 duration-200 ease-out"
+            />
+            <span>Désactiver</span>
+          </Link>
+        ) : (
+          <Link
+            className="group flex items-center gap-3 cursor-pointer text-sm text-gray-5 hover:bg-amber-500 hover:text-white font-semibold px-4 py-2 duration-200 ease-out"
+            to="#"
+          >
+            <FontAwesomeIcon
+              icon={faLockOpen}
+              className="group-hover:rotate-12 duration-200 ease-out"
+            />
+            <span>Activer</span>
+          </Link>
+        )}
         <Link
-          className="flex items-center gap-3 cursor-pointer text-sm text-gray-5 hover:bg-primary-5 hover:text-white font-semibold px-4 py-2 duration-200 ease-out"
+          className="group flex items-center gap-3 cursor-pointer text-sm text-danger-3 hover:bg-danger hover:text-white font-semibold px-4 py-2 duration-200 ease-out"
           to="#"
         >
-          <FontAwesomeIcon icon={faPenToSquare} />
-          <span href="#">Editer</span>
-        </Link>
-        <Link
-          className="flex items-center gap-3 cursor-pointer text-sm text-red-500 hover:bg-danger hover:text-white font-semibold px-4 py-2 duration-200 ease-out"
-          to="#"
-        >
-          <FontAwesomeIcon icon={faTrashCan} />
-          <span href="#">Supprimer</span>
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="group-hover:rotate-12 duration-200 ease-out"
+          />
+          <span>Supprimer</span>
         </Link>
       </div>
     </div>
