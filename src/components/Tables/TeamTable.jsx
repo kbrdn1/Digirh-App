@@ -7,19 +7,19 @@ const items = [
   {
     name: 'Design',
     color: '#DF84CB',
-    tripExpenses : 10000,
+    tripExpenses: 10000,
     progress: 100,
   },
   {
     name: 'Web Development',
     color: '#FBBF24',
-    tripExpenses : 12500,
+    tripExpenses: 12500,
     progress: 50,
   },
   {
     name: 'Marketing',
     color: '#34D399',
-    tripExpenses : 5000,
+    tripExpenses: 5000,
     progress: 75,
   },
   {
@@ -67,9 +67,8 @@ const TeamTable = () => {
           {items.map((item, index) => (
             <tr
               key={index}
-              className={`border-t border-light-2 ${
-                activeActions === index ? 'bg-gray-1' : ''
-              }`}
+              className={`border-t border-light-2 ${activeActions === index ? 'bg-gray-1' : ''
+                }`}
             >
               <td className="px-6 py-4 min-w-[200px]">
                 <TeamTableBadge teamName={item.name} color={item.color} />
