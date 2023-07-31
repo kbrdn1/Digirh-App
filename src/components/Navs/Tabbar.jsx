@@ -34,7 +34,11 @@ const Tabbar = observer(() => {
           {currentPath ? currentPath : 'Dashboard'}
         </p>
       </div>
-      <Searchbar />
+      {authStore.user.roles.find(
+        (role) => role === 'ROLE_ADMIN' || role === 'ROLE_SUPER_ADMIN'
+      ) ? (
+        <Searchbar />
+      ) : null}
       <FontAwesomeIcon
         icon={faCog}
         className="hidden lg:flex text-gray"

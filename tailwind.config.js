@@ -47,6 +47,9 @@ module.exports = {
         '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
         '4xl': '0 50px 100px -20px rgba(0, 0, 0, 0.25)',
       },
+      transitionTimingFunction: {
+        elastic: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+      },
     },
   },
   plugins: [],
