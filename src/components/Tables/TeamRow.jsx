@@ -2,6 +2,7 @@ import ProgressBar from '@components/ProgressBars/ProgressBar'
 import TableActions from '@components/Buttons/TableActions'
 import TeamTableBadge from './TeamTableBadge'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 const TeamRow = ({ team }) => {
   return (
@@ -31,6 +32,10 @@ const TeamRow = ({ team }) => {
       </td>
     </tr>
   )
+}
+
+TeamRow.propTypes = {
+  team: PropTypes.object.isRequired,
 }
 
 export default TeamRow

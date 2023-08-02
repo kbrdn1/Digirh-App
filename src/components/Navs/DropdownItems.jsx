@@ -3,6 +3,8 @@ import { faCaretLeft } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import Items from './Items'
 
+import PropTypes from 'prop-types'
+
 const DropdownItems = ({ content, iconLeft, full, items }) => {
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -44,6 +46,13 @@ const DropdownItems = ({ content, iconLeft, full, items }) => {
       </div>
     </div>
   )
+}
+
+DropdownItems.propTypes = {
+  content: PropTypes.string.isRequired,
+  iconLeft: PropTypes.object.isRequired,
+  full: PropTypes.bool,
+  items: PropTypes.array.isRequired,
 }
 
 export default DropdownItems

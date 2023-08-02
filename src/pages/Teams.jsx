@@ -13,11 +13,10 @@ import { toJS } from 'mobx'
 import { Link } from 'react-router-dom'
 
 const Teams = observer(() => {
-  
   useEffect(() => {
     teamStore.getAllTeamsByOrganisation(authStore.user.team.organisation.id)
   }, [teamStore])
-  
+
   return (
     <div className="flex flex-col gap-10">
       <Card

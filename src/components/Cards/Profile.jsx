@@ -22,15 +22,11 @@ const Profile = observer(({ footer, full }) => {
           avatar ? 'md:pl-[150px]' : null
         }`}
       >
-          {avatar && (
-            <div className="md:absolute mx-auto md:-top-[25px] md:left-[25px] rounded-[10px] w-fit overflow-hidden border-3 shadow-md">
-              <img
-                className="w-[100px]"
-                src='/avatar.png'
-                alt="profile-pic"
-              />
-            </div>
-          )}
+        {avatar && (
+          <div className="md:absolute mx-auto md:-top-[25px] md:left-[25px] rounded-[10px] w-fit overflow-hidden border-3 shadow-md">
+            <img className="w-[100px]" src="/avatar.png" alt="profile-pic" />
+          </div>
+        )}
         <div className="text-black text-[2rem] text-center">
           {user.firstname + ' ' + user.name}
         </div>

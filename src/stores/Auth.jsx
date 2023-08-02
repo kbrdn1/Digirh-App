@@ -102,7 +102,7 @@ class AuthStore {
    **/
   verifyToken = async () => {
     const token = this.getJwt()
-    
+
     if (!token) {
       this.removeJwt()
       this.removeUser()

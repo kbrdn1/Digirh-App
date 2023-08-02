@@ -10,14 +10,13 @@ import ToastError from '@components/Toasts/Error'
 const Login = () => {
   const navigate = useNavigate(),
     authStore = useContext(AuthContext),
-
     emailRef = useRef(''),
     passwordRef = useRef(''),
     errorRef = useRef(null),
     [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault()
 
     setIsLoading(true)
 
@@ -68,7 +67,8 @@ const Login = () => {
                 required
                 autoComplete="email"
                 autoFocus
-                onRef={emailRef}
+                ref={emailRef}
+                full
               />
               <Input
                 type="password"
@@ -76,12 +76,16 @@ const Login = () => {
                 id="password"
                 placeholder="Mot de passe"
                 required
-                onRef={passwordRef}
+                ref={passwordRef}
                 autoComplete="password"
+                full
               />
             </div>
             {errorRef.current && (
-              <ToastError text={errorRef.current} onClose={() => errorRef.current = null} />
+              <ToastError
+                text={errorRef.current}
+                onClose={() => (errorRef.current = null)}
+              />
             )}
             <ButtonPrimary
               type="submit"

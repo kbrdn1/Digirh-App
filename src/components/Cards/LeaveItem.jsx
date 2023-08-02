@@ -1,11 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCheckDouble,
-  faClock
-} from '@fortawesome/free-solid-svg-icons'
+import { faCheckDouble, faClock } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
 const LeaveItem = ({ notification }) => {
-  const { type, data, date_notif } = notification
+  const { type, data } = notification
 
   if (type === 'leave') {
     return (
@@ -17,14 +15,13 @@ const LeaveItem = ({ notification }) => {
           } p-2`}
         />
         <div className="flex flex-col gap-1">
-          <div className="text-lg text-black">
-            {data.name_absence}
-          </div>
+          <div className="text-lg text-black">{data.name_absence}</div>
           <p className="text-sm text-black font-bold flex gap-2">
             Type: <span className="text-gray font-normal">{data.type}</span>
           </p>
           <p className="text-sm text-black font-bold flex gap-2">
-            Début: <span className="text-gray font-normal">{data.start_date}</span>
+            Début:{' '}
+            <span className="text-gray font-normal">{data.start_date}</span>
           </p>
           <p className="text-sm text-black font-bold flex gap-2">
             Fin: <span className="text-gray font-normal">{data.end_date}</span>
@@ -33,6 +30,10 @@ const LeaveItem = ({ notification }) => {
       </div>
     )
   }
+}
+
+LeaveItem.propTypes = {
+  notification: PropTypes.object.isRequired,
 }
 
 export default LeaveItem

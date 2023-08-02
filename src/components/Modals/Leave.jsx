@@ -9,6 +9,7 @@ import BtnPrimary from '@components/Buttons/Primary'
 import BtnSecondary from '@components/Buttons/Secondary'
 import BtnCancel from '@components/Buttons/Cancel'
 import InputFile from '@components/Inputs/File'
+import PropTypes from 'prop-types'
 
 const Leave = ({ user, primary }) => {
   const leaveRef = useRef(null),
@@ -23,9 +24,9 @@ const Leave = ({ user, primary }) => {
   useEffect(() => {
     open
       ? (window.scrollTo(0, 0), (document.body.style.overflow = 'hidden'))
-          : (document.body.style.overflow = 'unset')
-      
-      setError(null)
+      : (document.body.style.overflow = 'unset')
+
+    setError(null)
   }, [open])
 
   const handleSubmit = async () => {
@@ -50,32 +51,24 @@ const Leave = ({ user, primary }) => {
   return (
     <>
       {primary ? (
-      <BtnPrimary
-        onClickAction={() => setOpen(true)}
-      >
-        Faire une demande d’absence
+        <BtnPrimary onClick={() => setOpen(true)}>
+          Faire une demande d’absence
         </BtnPrimary>
       ) : (
-          <BtnSecondary
-            onClickAction={() => setOpen(true)}
-          >
-            Faire une demande d’absence
+        <BtnSecondary onClick={() => setOpen(true)}>
+          Faire une demande d’absence
         </BtnSecondary>
-        )}
+      )}
       {open && (
         <Modal
-          onSubmitAction={handleSubmit}
+          onSubmit={handleSubmit}
           title="Faire une demande d’absence"
           color="#5F4DEE"
           full
           error={error}
           footer={
             <>
-              <BtnCancel
-                onClickAction={() => setOpen(false)}
-              >
-                Annuler
-              </BtnCancel>
+              <BtnCancel onClick={() => setOpen(false)}>Annuler</BtnCancel>
               <BtnConfirm
                 disabled={isLoading}
                 iconRight={isLoading ? faSpinner : null}
@@ -97,6 +90,7 @@ const Leave = ({ user, primary }) => {
                 { value: 'congé sans solde', label: 'Congé sans solde' },
                 { value: 'congé maladie', label: 'Congé maladie' },
               ]}
+              full
             />
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
@@ -106,7 +100,8 @@ const Leave = ({ user, primary }) => {
             <Input
               placeholder="Libéllé"
               onRef={nameLeaveRef}
-              defaultValue={'leave de ' + user.name + ' ' + user.firstname}
+              defaultValue={'Absence de ' + user.name + ' ' + user.firstname}
+              full
             />
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
@@ -115,11 +110,11 @@ const Leave = ({ user, primary }) => {
           <div className="flex flex-col md:flex-row gap-3 md:gap-2">
             <div className="flex flex-col gap-2">
               <Label text="Date de début" />
-              <Input type="date" onRef={startDateRef} />
+              <Input type="date" onRef={startDateRef} full />
             </div>
             <div className="flex flex-col gap-2">
               <Label text="Date de fin" />
-              <Input type="date" onRef={endDateRef} />
+              <Input type="date" onRef={endDateRef} full />
             </div>
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
@@ -128,6 +123,7 @@ const Leave = ({ user, primary }) => {
           <div className="flex flex-col gap-2">
             <InputFile
               onRef={documentRef}
+              full
               accept="application/pdf, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, image/jpeg, image/png"
             />
           </div>
@@ -135,6 +131,11 @@ const Leave = ({ user, primary }) => {
       )}
     </>
   )
+}
+
+Leave.propTypes = {
+  user: PropTypes.object.isRequired,
+  primary: PropTypes.bool,
 }
 
 export default Leave

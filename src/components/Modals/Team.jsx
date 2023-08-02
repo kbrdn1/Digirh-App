@@ -11,6 +11,7 @@ import Textarea from '@components/Inputs/Textarea'
 import Checkbox from '@components/Inputs/Checkbox'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
 const Team = ({ team, primary, small }) => {
   const nameRef = useRef(null),
@@ -94,11 +95,20 @@ const Team = ({ team, primary, small }) => {
           </div>
           <div className="flex flex-col gap-2">
             <Label text="Nom" />
-            <Input type="text" onRef={nameRef} defaultValue={team.name_team} />
+            <Input
+              type="text"
+              onRef={nameRef}
+              defaultValue={team.name_team}
+              full
+            />
           </div>
           <div className="flex flex-col gap-2">
             <Label text="Description" />
-            <Textarea onRef={descriptionRef} defaultValue={team.description} />
+            <Textarea
+              onRef={descriptionRef}
+              defaultValue={team.description}
+              full
+            />
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
             Effectif minimum
@@ -108,6 +118,7 @@ const Team = ({ team, primary, small }) => {
               type="number"
               onRef={minPersonRef}
               defaultValue={team.min_person}
+              full
             />
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
@@ -124,6 +135,12 @@ const Team = ({ team, primary, small }) => {
       )}
     </>
   )
+}
+
+Team.propTypes = {
+  team: PropTypes.object.isRequired,
+  primary: PropTypes.bool,
+  small: PropTypes.bool,
 }
 
 export default Team

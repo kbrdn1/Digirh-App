@@ -1,6 +1,7 @@
 import TeamRow from './TeamRow'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
 const items = [
   {
@@ -58,7 +59,10 @@ const TeamTable = ({ teams }) => {
               teams.map((team, index) => <TeamRow team={team} key={index} />)
             ) : (
               <tr className="border-t border-light-2 px-3">
-                <td className="px-6 py-4 text-sm text-gray flex items-center gap-2 font-semibold" width={'250px'}>
+                <td
+                  className="px-6 py-4 text-sm text-gray flex items-center gap-2 font-semibold"
+                  width={'250px'}
+                >
                   Chargement des données
                   <FontAwesomeIcon icon={faSpinner} spinPulse />
                 </td>
@@ -69,6 +73,10 @@ const TeamTable = ({ teams }) => {
       </div>
     </div>
   )
+}
+
+TeamTable.propTypes = {
+  teams: PropTypes.array,
 }
 
 export default TeamTable
