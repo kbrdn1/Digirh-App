@@ -1,9 +1,9 @@
 import { faCircleCheck, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import toastStore from '@stores/Toast'
+import PropTypes from 'prop-types'
 
 const Success = ({ message, close, animation }) => {
-
   const handleClose = () => {
     document.querySelector('.toast-success').classList.remove('toast-anim')
     document.querySelector('.toast-success').classList.add('toast-anim-out')
@@ -15,7 +15,7 @@ const Success = ({ message, close, animation }) => {
   return (
     <div
       className={`toast-success ${
-        animation ? 'toast-anim' : null 
+        animation ? 'toast-anim' : null
       } bg-valid text-white font-semibold text-sm rounded-lg shadow-lg p-4 flex gap-2 items-center duration-200 ease-out`}
     >
       <FontAwesomeIcon icon={faCircleCheck} beat />
@@ -29,6 +29,12 @@ const Success = ({ message, close, animation }) => {
       )}
     </div>
   )
+}
+
+Success.propTypes = {
+  message: PropTypes.string.isRequired,
+  close: PropTypes.bool,
+  animation: PropTypes.bool,
 }
 
 export default Success

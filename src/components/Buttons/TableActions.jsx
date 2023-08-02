@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import PropTypes from 'prop-types'
+
 import {
   faEllipsisVertical,
   faEye,
-  faPenToSquare,
   faTrashCan,
   faLockOpen,
   faLock,
@@ -82,6 +83,10 @@ const TableActions = ({ team }) => {
       </div>
     </div>
   )
+}
+
+TableActions.propTypes = {
+  team: PropTypes.object.isRequired,
 }
 
 export default TableActions

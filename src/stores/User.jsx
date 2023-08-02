@@ -108,12 +108,36 @@ class UserStore {
 
   /**
    * @param {object} data
-   * @returns {void}
+   * @returns {object} { error, response }
    * @description Updates a user profile
    * @async
    * @method
    * */
   async updateUserProfile(id, data) {
+    const token = authStore.getJwt()
+
+    await axios
+      .patch(`${api_url}/user/edit/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        this.setUser(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  /**
+   * @param {object} data
+   * @returns {object} { error, response }
+   * @description Updates a user profile
+   * @async
+   * @method
+   * */
+  async updateSelfUserProfile(id, data) {
     const token = authStore.getJwt()
 
     await axios

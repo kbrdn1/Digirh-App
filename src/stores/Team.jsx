@@ -121,10 +121,7 @@ class TeamStore {
     }
   }
 
-  async getTeamTripExpense(id) {
-      
-  }
-
+  async getTeamTripExpense(id) {}
 }
 
 const teamStore = new TeamStore()

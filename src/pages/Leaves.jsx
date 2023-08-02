@@ -1,10 +1,10 @@
-import Card from '@components/Cards/Default';
-import ModalLeave from '@components/Modals/Leave';
-import LeaveItem from '@components/Cards/LeaveItem';
-import BtnSecondary from '@components/Buttons/Secondary';
-import authStore from '@stores/Auth';
-import { observer } from 'mobx-react';
-import { useNavigate } from 'react-router-dom';
+import Card from '@components/Cards/Default'
+import ModalLeave from '@components/Modals/Leave'
+import LeaveItem from '@components/Cards/LeaveItem'
+import BtnSecondary from '@components/Buttons/Secondary'
+import authStore from '@stores/Auth'
+import { observer } from 'mobx-react'
+import { useNavigate } from 'react-router-dom'
 
 // Notification store for the demo
 const notificationStore = {
@@ -85,14 +85,14 @@ const Leave = observer(() => {
           </div>
         </div>
       </Card>
-      <Card full title="Mes demandes d'absences"
+      <Card
+        full
+        title="Mes demandes d'absences"
         footer={
-          <BtnSecondary
-            onClickAction={() => navigate('/calendar')}
-          >
+          <BtnSecondary onClickAction={() => navigate('/calendar')}>
             Voir sur calendrier
-        </BtnSecondary>
-      }
+          </BtnSecondary>
+        }
       >
         <div className="flex flex-col gap-5">
           {notificationStore.notifications.map((notification) => (
@@ -107,4 +107,4 @@ const Leave = observer(() => {
   )
 })
 
-export default Leave;
+export default Leave

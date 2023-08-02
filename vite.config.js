@@ -16,6 +16,7 @@ export default defineConfig({
       '@utils': '/src/utils',
       '@assets': '/src/assets',
       '@hooks': '/src/hooks',
+      '@reducers': '/src/reducers',
       '@stores': '/src/stores',
       '@contexts': '/src/contexts',
       '@router': '/src/router',

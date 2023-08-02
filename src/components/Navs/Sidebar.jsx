@@ -154,7 +154,7 @@ const Sidebar = observer(() => {
           </div>
         </div>
         <div className="relative w-full py-6 px-4 flex items-center justify-between border-t border-primary">
-          <Link to="/profile" className='w-10 h-10 min-w-[40px]'>
+          <Link to="/profile" className="w-10 h-10 min-w-[40px]">
             <img
               src="/Digirh-App/avatar.png"
               alt="avatar"
@@ -180,16 +180,10 @@ const Sidebar = observer(() => {
               openOption ? 'block' : 'hidden'
             }`}
           >
-            <BtnSecondary
-              full
-              onClickAction={() => navigate('/profile')}
-            >
+            <BtnSecondary full onClick={() => navigate('/profile')}>
               Mon profil
             </BtnSecondary>
-            <BtnDanger
-              full
-              onClickAction={() => navigate('/logout')}
-            >
+            <BtnDanger full onClick={() => navigate('/logout')}>
               Déconnexion
             </BtnDanger>
           </div>

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const TeamTableBadge = ({ teamName, color }) => {
   //Récupère les premières lettres de chaque mot du nom de l'équipe
   const initials = teamName
@@ -16,6 +18,11 @@ const TeamTableBadge = ({ teamName, color }) => {
       <p className="text-sm font-semibold">{teamName}</p>
     </div>
   )
+}
+
+TeamTableBadge.propTypes = {
+  teamName: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
 }
 
 export default TeamTableBadge

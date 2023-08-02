@@ -11,6 +11,7 @@ import BtnSecondary from '@components/Buttons/Secondary'
 import BtnConfirm from '@components/Buttons/Confirm'
 import BtnCancel from '@components/Buttons/Cancel'
 import InputFile from '@components/Inputs/File'
+import PropTypes from 'prop-types'
 
 const Profile = ({ user, primary }) => {
   const avatarRef = useRef(null),
@@ -26,7 +27,7 @@ const Profile = ({ user, primary }) => {
     open
       ? (window.scrollTo(0, 0), (document.body.style.overflow = 'hidden'))
       : (document.body.style.overflow = 'unset')
-    
+
     setError(null)
   }, [open])
 
@@ -61,32 +62,24 @@ const Profile = ({ user, primary }) => {
   return (
     <>
       {primary ? (
-      <BtnPrimary
-        onClickAction={() => setOpen(true)}
-      >
-        Modifier les informations
+        <BtnPrimary onClick={() => setOpen(true)}>
+          Modifier les informations
         </BtnPrimary>
       ) : (
-          <BtnSecondary
-            onClickAction={() => setOpen(true)}
-          >
-            Modifier les informations
+        <BtnSecondary onClick={() => setOpen(true)}>
+          Modifier les informations
         </BtnSecondary>
       )}
       {open && (
         <Modal
-          onSubmitAction={handleSubmit}
+          onSubmit={handleSubmit}
           title="Modifier les informations"
           color="#9941ED"
           full
           error={error}
           footer={
             <>
-              <BtnCancel
-                onClickAction={() => setOpen(false)}
-              >
-                Annuler
-              </BtnCancel>
+              <BtnCancel onClick={() => setOpen(false)}>Annuler</BtnCancel>
               <BtnConfirm
                 disabled={isLoading}
                 iconRight={isLoading ? faSpinner : null}
@@ -102,9 +95,10 @@ const Profile = ({ user, primary }) => {
           </div>
           <div className="flex flex-col gap-2">
             <InputFile
-              onRef={avatarRef}
+              ref={avatarRef}
               accept="image/png, image/jpeg"
               defaultValue={user.avatar ? user.avatar : null}
+              full
             />
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
@@ -113,18 +107,14 @@ const Profile = ({ user, primary }) => {
           <div className="flex flex-col md:flex-row gap-3 md:gap-2">
             <div className="flex flex-col gap-2">
               <Label text="Nom" />
-              <Input
-                placeholder="Nom"
-                defaultValue={user.name}
-                onRef={nameRef}
-              />
+              <Input placeholder="Nom" defaultValue={user.name} ref={nameRef} />
             </div>
             <div className="flex flex-col gap-2">
               <Label text="Prénom" />
               <Input
                 placeholder="Prénom"
                 defaultValue={user.firstname}
-                onRef={firstnameRef}
+                ref={firstnameRef}
               />
             </div>
           </div>
@@ -137,7 +127,8 @@ const Profile = ({ user, primary }) => {
               type="email"
               placeholder="Email"
               defaultValue={user.email}
-              onRef={emailRef}
+              ref={emailRef}
+              full
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -146,13 +137,19 @@ const Profile = ({ user, primary }) => {
               type="tel"
               placeholder="Téléphone"
               defaultValue={user.phone}
-              onRef={phoneRef}
+              ref={phoneRef}
+              full
             />
           </div>
         </Modal>
       )}
     </>
   )
+}
+
+Profile.propTypes = {
+  user: PropTypes.object.isRequired,
+  primary: PropTypes.bool,
 }
 
 export default Profile
