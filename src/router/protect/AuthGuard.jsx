@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types'
 import AuthContext from '@contexts/Auth.jsx'
-import { observer } from 'mobx-react'
 import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
 
@@ -11,6 +11,10 @@ const AuthGuard = ({ children }) => {
   }
 
   return children
+}
+
+AuthGuard.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default AuthGuard
