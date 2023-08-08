@@ -1,39 +1,63 @@
-import TeamTable from '@components/Tables/TeamTable'
-import teamStore from '@stores/Team'
-import authStore from '@stores/Auth'
-import { useEffect } from 'react'
-import Card from '@components/Cards/Default'
 import BtnGhost from '@components/Buttons/Ghost'
 import BtnPrimary from '@components/Buttons/Primary'
+import Card from '@components/Cards/Default'
 import ProgressBar from '@components/ProgressBars/ProgressBar'
+import TeamTable from '@components/Tables/TeamTable'
+import ModalEditTeam from '@components/Modals/EditTeam'
 import { faEye, faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { observer } from 'mobx-react'
+import teamStore from '@stores/Team'
 import { toJS } from 'mobx'
+import { observer } from 'mobx-react'
+import { useEffect, useState, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 const Teams = observer(() => {
+  const [activeTeams, setActiveTeams] = useState(null),
+    [inactiveTeams, setInactiveTeams] = useState(null),
+    creatTeamRef = useRef(null)
+
   useEffect(() => {
-    teamStore.getAllTeamsByOrganisation(authStore.user.team.organisation.id)
+    teamStore.getAllTeams()
   }, [teamStore])
+
+  const viewActiveTeams = async () => {
+      setInactiveTeams(null)
+      setActiveTeams(await teamStore.getActiveTeams())
+    },
+    viewInactiveTeams = async () => {
+      setActiveTeams(null)
+      setInactiveTeams(await teamStore.getInactiveTeams())
+    },
+    viewAllTeams = () => {
+      setActiveTeams(null)
+      setInactiveTeams(null)
+    },
+    handleToggleModal = () => {
+      creatTeamRef.current.toggleModal()
+    }
 
   return (
     <div className="flex flex-col gap-10">
+      <ModalEditTeam ext ref={creatTeamRef} />
       <Card
         title="Gestion des équipes"
         full
         footer={
           <div className="flex flex-col lg:flex-row justify-between items-center w-full">
-            <div className="flex flex-col items-center md:flex-row">
-              <BtnGhost iconLeft={faEye}>
+            <div className="flex flex-col items-center xl:flex-row">
+              <BtnGhost iconLeft={faEye} onClick={viewActiveTeams}>
                 Afficher les équipes disponibles
               </BtnGhost>
-              <BtnGhost iconLeft={faEye}>
+              <BtnGhost iconLeft={faEye} onClick={viewInactiveTeams}>
                 Afficher les équipes indisponibles
+              </BtnGhost>
+              <BtnGhost iconLeft={faEye} onClick={viewAllTeams}>
+                Afficher toutes les équipes
               </BtnGhost>
             </div>
             <div>
-              <BtnPrimary>Créer une nouvelle équipe</BtnPrimary>
+              <BtnPrimary onClick={handleToggleModal}>Créer une nouvelle équipe</BtnPrimary>
             </div>
           </div>
         }
@@ -136,7 +160,39 @@ const Teams = observer(() => {
           </>
         )}
       </Card>
-      <TeamTable teams={toJS(teamStore.teams)} />
+      {activeTeams ? (
+        activeTeams.length > 0 ? (
+          <TeamTable
+            title="Équipes disponibles"
+            teams={toJS(activeTeams)}
+            full
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full">
+            <p className="font-bold font-franklin">Aucune équipe disponible</p>
+          </div>
+        )
+      ) : inactiveTeams ? (
+        inactiveTeams.length > 0 ? (
+          <TeamTable
+            title="Équipes indisponibles"
+            teams={toJS(inactiveTeams)}
+            full
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full">
+            <p className="font-bold font-franklin">
+              Aucune équipe indisponible
+            </p>
+          </div>
+        )
+      ) : (
+        <TeamTable
+          title="Toutes les équipes"
+          teams={toJS(teamStore.teams)}
+          full
+        />
+      )}
     </div>
   )
 })
