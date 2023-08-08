@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const ProgressBar = ({ progress, inverse }) => {
   let progressColor = 'bg-primary'
   if (progress > 100) {
@@ -37,6 +39,11 @@ const ProgressBar = ({ progress, inverse }) => {
       </div>
     </div>
   )
+}
+
+ProgressBar.propTypes = {
+  progress: PropTypes.number.isRequired,
+  inverse: PropTypes.bool,
 }
 
 export default ProgressBar

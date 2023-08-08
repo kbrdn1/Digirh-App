@@ -1,41 +1,27 @@
-import { useState } from 'react'
+import { forwardRef } from 'react'
 
-const File = ({
-  accept,
-  disabled,
-  full,
-  multiple,
-  required,
-  autofocus,
-  handleValue,
-  onRef,
-  defaultValue
-}) => {
-  const [file, setFile] = useState(null)
+import PropTypes from 'prop-types'
 
-  const handleFile = (e) => {
-    const file = e.target.files
-    if (file) {
-      setFile(file[0])
-      handleValue(file[0])
-    }
-  }
+const File = forwardRef((props, ref) => {
+  const { full, ...rest } = props
+
   return (
     <input
       className={`font-nunito font-regular text-black placeholder:text-gray disabled:grayscale focus:outline focus:outline-2 focus:outline-primary valid:outline-valid invalid:outline-danger border border-gray rounded-md file:px-[16px] file:py-[14px] pr-[16px] transition-all  file:mr-4 file:border-0 file:text-sm file:font-semibold file:bg-primary-3 file:text-white hover:file:bg-primary-hover file:transition-all ${
-        full ? 'w-full' : null
+        full ? 'w-full' : 'w-fit'
       }`}
       type="file"
-      accept={accept}
-      onChange={handleFile}
-      disabled={disabled ? disabled : false}
-      multiple={multiple ? multiple : false}
-      required={required ? required : false}
-      autoFocus={autofocus ? autofocus : false}
-      ref={onRef}
-      defaultValue={defaultValue}
+      ref={ref}
+      {...rest}
     />
   )
+})
+
+File.displayName = 'File'
+
+File.propTypes = {
+  full: PropTypes.bool,
+  props: PropTypes.object,
 }
 
 export default File

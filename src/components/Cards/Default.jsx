@@ -1,6 +1,8 @@
 import React from 'react'
 
-const Default = ({ title, description, children, footer, full }) => {
+import PropTypes from 'prop-types'
+
+const Default = ({ title, description, footer, full, children }) => {
   return (
     <div
       className={`bg-white shadow-xl font-nunito flex flex-col rounded-[12px] ${
@@ -19,6 +21,14 @@ const Default = ({ title, description, children, footer, full }) => {
       </div>
     </div>
   )
+}
+
+Default.propTypes = {
+  title: PropTypes.node.isRequired,
+  description: PropTypes.node,
+  footer: PropTypes.node.isRequired,
+  full: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default Default

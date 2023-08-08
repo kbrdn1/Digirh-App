@@ -18,9 +18,7 @@ const Dashboard = observer(() => {
           </p>
 
           <div className="flex flex-col gap-4 mt-8">
-            <BtnDanger
-              onClickAction={() => navigate('/logout')}
-            >
+            <BtnDanger onClickAction={() => navigate('/logout')}>
               Déconnexion
             </BtnDanger>
           </div>

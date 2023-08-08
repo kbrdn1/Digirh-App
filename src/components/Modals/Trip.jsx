@@ -9,6 +9,7 @@ import BtnPrimary from '@components/Buttons/Primary'
 import BtnSecondary from '@components/Buttons/Secondary'
 import BtnCancel from '@components/Buttons/Cancel'
 import InputFile from '@components/Inputs/File'
+import PropTypes from 'prop-types'
 
 const Absence = ({ user, primary }) => {
   const tripRef = useRef(null),
@@ -49,26 +50,24 @@ const Absence = ({ user, primary }) => {
   return (
     <>
       {primary ? (
-        <BtnPrimary onClickAction={() => setOpen(true)}>
+        <BtnPrimary onClick={() => setOpen(true)}>
           Faire une demande de déplacement
         </BtnPrimary>
       ) : (
-        <BtnSecondary onClickAction={() => setOpen(true)}>
+        <BtnSecondary onClick={() => setOpen(true)}>
           Faire une demande de déplacement
         </BtnSecondary>
       )}
       {open && (
         <Modal
-          onSubmitAction={handleSubmit}
+          onSubmit={handleSubmit}
           title="Faire une demande de déplacement"
           color="#5F4DEE"
           full
           error={error}
           footer={
             <>
-              <BtnCancel onClickAction={() => setOpen(false)}>
-                Annuler
-              </BtnCancel>
+              <BtnCancel onClick={() => setOpen(false)}>Annuler</BtnCancel>
               <BtnConfirm
                 disabled={isLoading}
                 iconRight={isLoading ? faSpinner : null}
@@ -95,6 +94,7 @@ const Absence = ({ user, primary }) => {
                   label: 'Déplacement personnel',
                 },
               ]}
+              full
             />
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
@@ -103,11 +103,21 @@ const Absence = ({ user, primary }) => {
           <div className="flex flex-col md:flex-row gap-3 md:gap-2">
             <div className="flex flex-col gap-2">
               <Label text="Montant (€)" />
-              <Input type="number" onRef={amountRef} />
+              <Input
+                type="number"
+                onRef={amountRef}
+                full
+                placeholder="0.00 €"
+              />
             </div>
             <div className="flex flex-col gap-2">
               <Label text="Distance (km)" />
-              <Input type="number" onRef={distanceRef} />
+              <Input
+                type="number"
+                onRef={distanceRef}
+                full
+                placeholder="0.00 km"
+              />
             </div>
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
@@ -116,6 +126,7 @@ const Absence = ({ user, primary }) => {
           <div className="flex flex-col gap-2">
             <InputFile
               onRef={ticketRef}
+              full
               accept="image/png, image/jpeg, application/pdf"
             />
           </div>
@@ -123,6 +134,11 @@ const Absence = ({ user, primary }) => {
       )}
     </>
   )
+}
+
+Absence.propTypes = {
+  user: PropTypes.object.isRequired,
+  primary: PropTypes.bool,
 }
 
 export default Absence

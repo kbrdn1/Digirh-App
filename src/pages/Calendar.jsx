@@ -71,15 +71,17 @@ const Calendar = () => {
             //         ? '#10B981'
             //         : '#3B82F6',
             //   }
-              // }).push(
-              [{
+            // }).push(
+            [
+              {
                 title: 'Congés payés',
                 start: '2023-08-11',
                 end: '2023-08-13',
                 color: '#EF4444',
                 display: 'background',
-                      }]
-                //)
+              },
+            ]
+            //)
           }
           locales={[frLocale]}
           locale={'fr'}

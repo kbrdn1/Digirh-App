@@ -64,7 +64,7 @@ const Trip = observer(() => {
       <Card
         full
         title="Demandes de frais de déplacement"
-        footer={<ModalTrip user={user} primary/>}
+        footer={<ModalTrip user={user} primary />}
       >
         <div className="flex flex-col gap-1">
           <p className="font-bold font-franklin">Informations</p>

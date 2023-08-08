@@ -1,8 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCheckDouble,
-  faClock
-} from '@fortawesome/free-solid-svg-icons'
+import { faCheckDouble, faClock } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
 const TripItem = ({ notification }) => {
   const { type, data, date_notif } = notification
@@ -18,7 +16,7 @@ const TripItem = ({ notification }) => {
         />
         <div className="flex flex-col gap-1">
           <div className="text-lg text-black">
-            Déplacement du&nbsp; 
+            Déplacement du&nbsp;
             {new Date(date_notif).toLocaleDateString('fr-FR', {
               year: 'numeric',
               month: 'short',
@@ -31,12 +29,17 @@ const TripItem = ({ notification }) => {
             Prix: <span className="text-gray font-normal">{data.amount} €</span>
           </p>
           <p className="text-sm text-black font-bold flex gap-2">
-            Distance: <span className="text-gray font-normal">{data.distance} km</span>
+            Distance:{' '}
+            <span className="text-gray font-normal">{data.distance} km</span>
           </p>
         </div>
       </div>
     )
   }
+}
+
+TripItem.propTypes = {
+  notification: PropTypes.object.isRequired,
 }
 
 export default TripItem

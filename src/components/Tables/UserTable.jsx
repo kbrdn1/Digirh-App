@@ -1,51 +1,27 @@
-import TeamRow from './TeamRow'
+import ProTypes from 'prop-types'
+import UserRow from './UserRow'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import PropTypes from 'prop-types'
 
-// const items = [
-//   {
-//     name: 'Design',
-//     color: '#DF84CB',
-//     tripExpenses: 10000,
-//     progress: 100,
-//   },
-//   {
-//     name: 'Web Development',
-//     color: '#FBBF24',
-//     tripExpenses: 12500,
-//     progress: 50,
-//   },
-//   {
-//     name: 'Marketing',
-//     color: '#34D399',
-//     tripExpenses: 5000,
-//     progress: 75,
-//   },
-//   {
-//     name: 'Sales',
-//     color: '#3B82F6',
-//     tripExpenses: 7500,
-//     progress: 25,
-//   },
-// ]
-
-const TeamTable = ({ teams }) => {
+const UserTable = ({ users }) => {
   return (
     <div className="w-full font-franklin">
-      <div className="relative before:content-['Equipes'] before:w-[calc(100%-2rem)] before:z-10 before:left-1/2 before:-translate-x-1/2 -top-6 before:bg-gradient-to-r before:from-primary before:to-primary-5 before:p-5 before:rounded-xl before:absolute before:text-white before:items-center before:justify-start before:shadow-xl before:sm:flex before:font-semibold before:font-franklin"></div>
+      <div className="relative before:content-['Collaborateurs'] before:bg-primary before:w-[calc(100%-2rem)] before:z-10 before:left-1/2 before:-translate-x-1/2 -top-6 before:p-5 before:rounded-xl before:absolute before:text-white before:items-center before:justify-start before:shadow-xl before:sm:flex before:font-semibold before:font-franklin"></div>
       <div className="overflow-x-scroll table-scroll">
         <table className="w-full text-left h-full bg-white rounded-xl shadow-md">
           <thead>
             <tr className="font-normal text-gray-5 text-xs">
               <th scope="col" className="px-6 pb-4 pt-14">
-                Equipes
+                Collaborateurs
               </th>
               <th scope="col" className="px-6 pb-4 pt-14">
-                Deplacements
+                Fonctions
               </th>
               <th scope="col" className="px-6 pb-4 pt-14">
-                Effectif
+                Statuts
+              </th>
+              <th scope="col" className="px-6 pb-4 pt-14">
+                Embauches
               </th>
               <th scope="col" className="px-6 pb-4 pt-14 text-right">
                 Actions
@@ -53,8 +29,8 @@ const TeamTable = ({ teams }) => {
             </tr>
           </thead>
           <tbody>
-            {teams ? (
-              teams.map((team, index) => <TeamRow team={team} key={index} />)
+            {users ? (
+              users.map((user, index) => <UserRow user={user} key={index} />)
             ) : (
               <tr className="border-t border-light-2 px-3">
                 <td
@@ -73,8 +49,8 @@ const TeamTable = ({ teams }) => {
   )
 }
 
-TeamTable.propTypes = {
-  teams: PropTypes.array,
+UserTable.propTypes = {
+  users: ProTypes.array,
 }
 
-export default TeamTable
+export default UserTable

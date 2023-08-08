@@ -5,6 +5,7 @@ import {
   faCirclePlus,
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
 const ActivityItem = ({ notification }) => {
   const { type, data, date_notif } = notification
@@ -104,6 +105,10 @@ const ActivityItem = ({ notification }) => {
       </div>
     )
   }
+}
+
+ActivityItem.propTypes = {
+  notification: PropTypes.object.isRequired,
 }
 
 export default ActivityItem

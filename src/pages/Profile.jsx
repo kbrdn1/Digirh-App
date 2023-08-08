@@ -20,13 +20,14 @@ const notificationStore = {
       type: 'trip',
       data: {
         id_trip_expense: 1,
-        ticket: 'https://www.google.com/maps/dir/?api=1&destination=Paris&origin=Lyon&travelmode=driving',
+        ticket:
+          'https://www.google.com/maps/dir/?api=1&destination=Paris&origin=Lyon&travelmode=driving',
         amount: 56.78,
         distance: 450,
         isVerified: true,
       },
-    date_notif: '2023-09-05 14:45:00',
-    reference: 1,
+      date_notif: '2023-09-05 14:45:00',
+      reference: 1,
       isRead: false,
     },
     {
@@ -65,7 +66,8 @@ const notificationStore = {
       data: {
         id_team: 1,
         name_team: 'Développement Web',
-        description_team: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros quis nisl aliquam aliquet. Sed vitae eros quis nisl aliquam aliquet.',
+        description_team:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros quis nisl aliquam aliquet. Sed vitae eros quis nisl aliquam aliquet.',
         min_person: 3,
         isActive: true,
       },
@@ -89,9 +91,9 @@ const Profile = observer(() => {
             footer={
               // <BtnPrimary
               //   content="Modifier les informations"
-              //   onClickAction={() => setOpenProfileModal(true)}
+              //   onClick={() => setOpenProfileModal(true)}
               // />
-              <ModalProfile user={user} primary/>
+              <ModalProfile user={user} primary />
             }
           />
           <Card
@@ -120,12 +122,12 @@ const Profile = observer(() => {
             title="Aperçu de l'activité"
             footer={
               <>
-                <BtnSecondary onClickAction={() => navigate('/calendar')}>
+                <BtnSecondary onClick={() => navigate('/calendar')}>
                   Voir sur le calendrier
                 </BtnSecondary>
                 <BtnGhost
                   iconLeft={faEye}
-                  onClickAction={() => navigate('/activity')}
+                  onClick={() => navigate('/activity')}
                 >
                   Voir toute l’activité
                 </BtnGhost>
