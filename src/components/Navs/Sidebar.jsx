@@ -25,18 +25,36 @@ import authStore from '@stores/Auth'
 
 const LeavesItems = [
   {
-    content: 'Equipes',
-    iconLeft: faUsers,
-    link: '/leaves/teams',
-  },
-  {
     content: 'Collaborateurs',
     iconLeft: faUserGroup,
     link: '/leaves/collaborators',
   },
+  {
+    content: 'Equipes',
+    iconLeft: faUsers,
+    link: '/leaves/teams',
+  },
+]
+
+const TripItems = [
+  {
+    content: 'Collaborateurs',
+    iconLeft: faUserGroup,
+    link: '/trips/collaborators',
+  },
+  {
+    content: 'Equipes',
+    iconLeft: faUsers,
+    link: '/trips/teams',
+  },
 ]
 
 const OrganizationItems = [
+  {
+    content: 'Collaborateurs',
+    iconLeft: faUserGroup,
+    link: '/organization/collaborators',
+  },
   {
     content: 'Equipes',
     iconLeft: faUsers,
@@ -106,15 +124,13 @@ const Sidebar = observer(() => {
         </Link>
         <div className="h-full mt-20 py-4 overflow-y-scroll">
           <div className="w-full flex flex-col px-4 gap-1">
-            <Items content="Tableau de bord" full iconLeft={faHouse} link="/" />
-            <Items
-              content="Calendier"
-              full
-              iconLeft={faCalendarDays}
-              link="/calendar"
-            />
-            {authStore.user.roles.includes('ROLE_ADMIN') ||
-            authStore.user.roles.includes('ROLE_SUPER_ADMIN') ? (
+            <Items full iconLeft={faHouse} link="/">
+              Tableau de bord
+            </Items>
+            <Items full iconLeft={faCalendarDays} link="/calendar">
+              Calendier
+            </Items>
+            {authStore.user.roles.find((role) => role === 'ROLE_RTT_CA') ? (
               <DropdownItems
                 content="Absences"
                 full
@@ -122,35 +138,41 @@ const Sidebar = observer(() => {
                 items={LeavesItems}
               />
             ) : (
-              <Items
-                content="Absences"
+              <Items full iconLeft={faSuitcase} link="/leaves">
+                Absences
+              </Items>
+            )}
+            {authStore.user.roles.find((role) => role === 'ROLE_RFD') ? (
+              <DropdownItems
+                content="Déplacements"
                 full
-                iconLeft={faSuitcase}
-                link="/leaves"
+                iconLeft={faCar}
+                items={TripItems}
+              />
+            ) : (
+              <Items full iconLeft={faCar} link="/trips">
+                Déplacements
+              </Items>
+            )}
+            {authStore.user.roles.find(
+              (role) =>
+                role === 'ROLE_SUPER_ADMIN' ||
+                role === 'ROLE_ADMIN' ||
+                role === 'ROLE_RH'
+            ) && (
+              <DropdownItems
+                content="Organisation"
+                full
+                iconLeft={faSitemap}
+                items={OrganizationItems}
               />
             )}
-            {authStore.user.roles.includes('ROLE_ADMIN') ||
-              (authStore.user.roles.includes('ROLE_SUPER_ADMIN') && (
-                <DropdownItems
-                  content="Organisation"
-                  full
-                  iconLeft={faSitemap}
-                  items={OrganizationItems}
-                />
-              ))}
-            <Items content="Déplacements" full iconLeft={faCar} link="/trips" />
-            <Items
-              content="Statistiques"
-              full
-              iconLeft={faChartLine}
-              link="/stats"
-            />
-            <Items
-              content="Notifications"
-              full
-              iconLeft={faBell}
-              link="/notifications"
-            />
+            <Items full iconLeft={faChartLine} link="/stats">
+              Statistiques
+            </Items>
+            <Items full iconLeft={faBell} link="/notifications">
+              Notifications
+            </Items>
           </div>
         </div>
         <div className="relative w-full py-6 px-4 flex items-center justify-between border-t border-primary">

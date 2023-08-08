@@ -35,7 +35,7 @@ const Profile = observer(({ footer, full }) => {
             user.statut.name_statut === 'Présent' ? 'bg-valid' : 'bg-danger'
           }`}
         >
-          {user.statut.name_statut === 'Présent' ? 'Présent' : 'Absent'}
+          {user.statut.name_statut === 'Présent' ? 'Présent' : 'En congés'}
         </div>
       </div>
       <div
@@ -55,7 +55,11 @@ const Profile = observer(({ footer, full }) => {
         <div className="text-black text-[1rem] text-gray-4">
           {user.roles.map((role) => {
             if (role === 'ROLE_SUPER_ADMIN') return 'Super Administrateur '
-            if (role === 'ROLE_ADMIN') return 'Administrateur '
+            if (role === 'ROLE_ADMIN' || role === 'ROLE_RH')
+              return 'Directeur RH '
+            if (role === 'ROLE_RFD') return 'Réfrent des Frais de Déplacement '
+            if (role === 'ROLE_RTT_CA') return 'Réfrent des RTT et CA '
+            if (role === 'ROLE_RESP') return "Chef d'équipe "
             if (role === 'ROLE_USER') return 'Collaborateur '
           })}
         </div>

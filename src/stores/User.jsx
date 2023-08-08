@@ -95,7 +95,22 @@ class UserStore {
    * @async
    * @method
    **/
-  async getAllUsers() {}
+  async getAllUsers() {
+    const token = authStore.getJwt()
+
+    await axios
+      .get(`${api_url}/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        this.setUsers(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   /**
    * @param {object} user
@@ -157,6 +172,30 @@ class UserStore {
         }
         this.setUser(userUpdated)
         authStore.setUser(userUpdated)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  /**
+   * @param {name} name
+   * @returns {object} { error, response }
+   * @description Searches a user by name
+   * @async
+   * @method
+   * */
+  async searchUserByName(name) {
+    const token = authStore.getJwt()
+
+    await axios
+      .get(`${api_url}/user/search/${name}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        this.setUsers(res.data)
       })
       .catch((err) => {
         console.log(err)

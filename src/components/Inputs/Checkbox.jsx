@@ -8,7 +8,7 @@ const Checkbox = forwardRef((props, ref) => {
     <div
       className={`flex gap-6 items-center ${
         full ? 'w-full' : 'w-fit'
-      } relative`}
+      } relative ml-2`}
     >
       <input
         type="checkbox"
@@ -26,11 +26,7 @@ Checkbox.displayName = 'Checkbox'
 Checkbox.propTypes = {
   full: PropTypes.bool,
   children: PropTypes.node,
-  props: PropTypes.object,
-  ref: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({ current: PropTypes.any }),
-  ]),
+  props: PropTypes.object
 }
 
 export default Checkbox
