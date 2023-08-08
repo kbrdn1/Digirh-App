@@ -1,6 +1,11 @@
 import { createHashRouter, Navigate } from 'react-router-dom'
 import App from '../App'
 import AuthGuard from './protect/AuthGuard'
+import AdminGuard from './protect/AdminGuard'
+import RespGuard from './protect/RespGuard'
+import SuperAdminGuard from './protect/SuperAdminGuard'
+import RTTCAGuard from './protect/RTTCAGuard'
+import RFDGuard from './protect/RFDGuard'
 import authStore from '@stores/Auth'
 import Dashboard from '@pages/Dashboard'
 import Login from '@pages/Login'
@@ -8,6 +13,8 @@ import Logout from '@pages/Logout'
 import NotFound from '@pages/404'
 import Error from '@pages/500'
 import Teams from '@pages/Teams'
+import Team from '@pages/Team'
+import Users from '@pages/Users'
 import Profile from '@pages/Profile'
 import Calendar from '@pages/Calendar'
 import Trips from '@pages/Trips'
@@ -42,13 +49,36 @@ const router = createHashRouter([
         errorElement: <Error />,
       },
       {
-        path: '/organization/teams',
+        path: 'organization/collaborators',
         element: (
           <AuthGuard>
-            <Teams />
+            <AdminGuard>
+              <Users />
+            </AdminGuard>
           </AuthGuard>
         ),
         errorElement: <Error />,
+      },
+      {
+        path: '/organization/teams',
+        element: (
+          <AuthGuard>
+            <AdminGuard>
+              <Teams />
+            </AdminGuard>
+          </AuthGuard>
+        ),
+        errorElement: <Error />,
+      },
+      {
+        path: '/team/:id',
+        element: (
+          <AuthGuard>
+            <AdminGuard>
+              <Team />
+            </AdminGuard>
+          </AuthGuard>
+        ),
       },
       {
         path: '/calendar',

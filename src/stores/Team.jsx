@@ -1,6 +1,7 @@
 import makeInspectable from 'mobx-devtools-mst'
 import { makeAutoObservable } from 'mobx'
 import axios from 'axios'
+import authStores from './Auth'
 
 // API URL
 const api_url = import.meta.env.VITE_API_URL
@@ -94,9 +95,9 @@ class TeamStore {
    * @async
    * @method
    **/
-  async getAllTeamsByOrganisation(userId) {
+  async getAllTeams() {
     try {
-      axios.get(api_url + '/team/all/' + userId).then((res) => {
+      axios.get(api_url + '/team').then((res) => {
         this.setTeams(res.data)
       })
     } catch (error) {
@@ -113,7 +114,7 @@ class TeamStore {
    **/
   async getTeamById(id) {
     try {
-      axios.get(api_url + '/team/' + id).then((res) => {
+      axios.get(`${api_url}/team/${id}`).then((res) => {
         this.setTeam(res.data)
       })
     } catch (error) {
@@ -121,7 +122,91 @@ class TeamStore {
     }
   }
 
-  async getTeamTripExpense(id) {}
+  async deleteTeam(id) {
+    const token = authStores.getJwt()
+    try {
+      await axios
+        .delete(`${api_url}/team/delete/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          this.getAllTeams()
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async createTeam(data) {
+    const token = authStores.getJwt()
+    try {
+      await axios
+        .post(`${api_url}/team/create`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          this.setTeam(res.data)
+        })
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  async updateTeam(data, id) {
+    const token = authStores.getJwt()
+    try {
+      await axios
+        .patch(`${api_url}/team/edit/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          this.setTeam(res.data)
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async addCollaborator(userId, id) {
+    try {
+      await axios
+        .patch(`${api_url}/team/add-user/${id}`, { user: userId })
+        .then(() => {
+          this.getTeamById(id)
+          return this.team
+        })
+    } catch (error) {
+      return error
+    }
+  }
+
+  async getActiveUsers() {
+    return this.team.users.filter((user) => user.isActive)
+  }
+
+  async getInactiveUsers() {
+    return this.team.users.filter(
+      (user) =>
+        !user.isActive ||
+        user.isActive === 'Absent' ||
+        user.isActive === 'En congés'
+    )
+  }
+
+  async getActiveTeams() {
+    return this.teams.filter((team) => team.isActive)
+  }
+
+  async getInactiveTeams() {
+    return this.teams.filter((team) => !team.isActive)
+  }
 }
 
 const teamStore = new TeamStore()

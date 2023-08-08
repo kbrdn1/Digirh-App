@@ -3,40 +3,38 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 
-const items = [
-  {
-    name: 'Design',
-    color: '#DF84CB',
-    tripExpenses: 10000,
-    progress: 100,
-  },
-  {
-    name: 'Web Development',
-    color: '#FBBF24',
-    tripExpenses: 12500,
-    progress: 50,
-  },
-  {
-    name: 'Marketing',
-    color: '#34D399',
-    tripExpenses: 5000,
-    progress: 75,
-  },
-  {
-    name: 'Sales',
-    color: '#3B82F6',
-    tripExpenses: 7500,
-    progress: 25,
-  },
-]
+// const items = [
+//   {
+//     name: 'Design',
+//     color: '#DF84CB',
+//     tripExpenses: 10000,
+//     progress: 100,
+//   },
+//   {
+//     name: 'Web Development',
+//     color: '#FBBF24',
+//     tripExpenses: 12500,
+//     progress: 50,
+//   },
+//   {
+//     name: 'Marketing',
+//     color: '#34D399',
+//     tripExpenses: 5000,
+//     progress: 75,
+//   },
+//   {
+//     name: 'Sales',
+//     color: '#3B82F6',
+//     tripExpenses: 7500,
+//     progress: 25,
+//   },
+// ]
 
 const TeamTable = ({ teams }) => {
   return (
-    <div className="relative w-full font-franklin">
-      <h1 className="w-[calc(100%-2rem)] mx-auto absolute -top-6 inset-x-0 bg-gradient-to-r from-primary to-primary-5 p-5 rounded-xl text-white items-center justify-start shadow-xl sm:flex font-semibold font-franklin">
-        Equipes
-      </h1>
-      <div className="overflow-x-scroll">
+    <div className="w-full font-franklin">
+      <div className="relative before:content-['Equipes'] before:w-[calc(100%-2rem)] before:z-10 before:left-1/2 before:-translate-x-1/2 -top-6 before:bg-gradient-to-r before:from-primary before:to-primary-5 before:p-5 before:rounded-xl before:absolute before:text-white before:items-center before:justify-start before:shadow-xl before:sm:flex before:font-semibold before:font-franklin"></div>
+      <div className="overflow-x-scroll table-scroll">
         <table className="w-full text-left h-full bg-white rounded-xl shadow-md">
           <thead>
             <tr className="font-normal text-gray-5 text-xs">

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 const Default = ({ title, children, color, onSubmit, footer, error }) => {
   return (
-    <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-scroll">
+    <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 overflow-y-scroll text-start">
       <div className="absolute md:left-1/2 md:top-1/2 top-10 md:-translate-x-1/2 md:-translate-y-1/2 z-40 w-full md:w-fit">
         <div className="relative bg-white shadow-xl rounded-[12px]">
           <Title color={color} title={title} />
