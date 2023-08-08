@@ -22,6 +22,7 @@ aside {
 /* Scrollbar */
 ::-webkit-scrollbar {
   @apply w-[5px];
+  @apply h-[5px];
 }
 
 ::-webkit-scrollbar-track {
@@ -40,4 +41,14 @@ aside {
 
 * {
   scroll-behavior: smooth;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-tr;
+  @apply from-primary-2;
+  @apply to-secondary;
 }
