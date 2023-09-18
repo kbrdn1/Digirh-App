@@ -119,7 +119,38 @@ class UserStore {
    * @async
    * @method
    **/
-  async getUserById(id) {}
+  async getUserById(id) {
+    return await axios
+      .get(`${api_url}/user/${id}`)
+      .then((res) => {
+        this.setUser(res.data)
+        return {
+          success: true,
+          data: res.data,
+          message: 'Collaborateur trouvé',
+        }
+      })
+      .catch((error) => {
+        return {
+          success: false,
+          message: error.response.data.message || error.response.data.error,
+        }
+      })
+  }
+
+  getActiveUsers() {
+    return this.users.filter((user) => user.isActive)
+  }
+
+  getInactiveUsers() {
+    return this.users.filter(
+      (user) =>
+        !user.isActive ||
+        user.statut.statut_name == 'Absent' ||
+        user.statut.statut_name == 'En Congés' ||
+        user.statut.statut_name == null
+    )
+  }
 
   /**
    * @param {object} data
@@ -131,7 +162,7 @@ class UserStore {
   async updateUserProfile(id, data) {
     const token = authStore.getJwt()
 
-    await axios
+    return await axios
       .patch(`${api_url}/user/edit/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -139,9 +170,17 @@ class UserStore {
       })
       .then((res) => {
         this.setUser(res.data)
+        return {
+          success: true,
+          message: 'Le profil a bien été mis à jour',
+          data: res.data,
+        }
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((error) => {
+        return {
+          success: false,
+          message: error.response.data.message || error.response.data.error,
+        }
       })
   }
 
@@ -155,7 +194,7 @@ class UserStore {
   async updateSelfUserProfile(id, data) {
     const token = authStore.getJwt()
 
-    await axios
+    return await axios
       .patch(`${api_url}/user/edit/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -172,9 +211,15 @@ class UserStore {
         }
         this.setUser(userUpdated)
         authStore.setUser(userUpdated)
+        return {
+          success: 'Votre profil a bien été mis à jour',
+        }
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((error) => {
+        return {
+          success: false,
+          message: error.response.data.message || error.response.data.error,
+        }
       })
   }
 
@@ -185,20 +230,28 @@ class UserStore {
    * @async
    * @method
    * */
-  async searchUserByName(name) {
+  async searchUsersByName(name) {
     const token = authStore.getJwt()
 
-    await axios
+    return await axios
       .get(`${api_url}/user/search/${name}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        this.setUsers(res.data)
+        return {
+          success: true,
+          message: 'Des utilisateurs ont été trouvés',
+          data: res.data,
+        }
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((error) => {
+        return {
+          success: false,
+          data: null,
+          message: error.response.data.message || error.response.data.error,
+        }
       })
   }
 }

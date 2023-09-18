@@ -141,50 +141,72 @@ class TeamStore {
 
   async createTeam(data) {
     const token = authStores.getJwt()
-    try {
-      await axios
-        .post(`${api_url}/team/create`, data, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          this.setTeam(res.data)
-        })
-    }
-    catch (error) {
-      console.log(error)
-    }
+
+    return await axios
+      .post(`${api_url}/team/create`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        this.setTeam(res.data)
+        return { success: true, message: "L'équipe a bien été créée" }
+      })
+      .catch((error) => {
+        return {
+          success: false,
+          message: error.response.data.message || error.response.data.error,
+        }
+      })
+  }
+
+  remapTeams(id) {
+    this.teams = this.teams.map((team) => {
+      if (team.id === id) {
+        return this.team
+      }
+      return team
+    })
   }
 
   async updateTeam(data, id) {
     const token = authStores.getJwt()
-    try {
-      await axios
-        .patch(`${api_url}/team/edit/${id}`, data, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          this.setTeam(res.data)
-        })
-    } catch (error) {
-      console.log(error)
-    }
+    return await axios
+      .patch(`${api_url}/team/edit/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        this.setTeam(res.data)
+        this.teams ? this.remapTeams(res.data.id) : null
+        return { success: true, message: "L'équipe a bien été modifiée" }
+      })
+      .catch((error) => {
+        return {
+          success: false,
+          message: error.response.data.message || error.response.data.error,
+        }
+      })
   }
 
-  async addCollaborator(userId, id) {
-    try {
-      await axios
-        .patch(`${api_url}/team/add-user/${id}`, { user: userId })
-        .then(() => {
-          this.getTeamById(id)
-          return this.team
-        })
-    } catch (error) {
-      return error
-    }
+  addUserInTeam = (user) => {
+    this.team.users.push(user)
+  }
+
+  async addCollaborator(user, teamId) {
+    return await axios
+      .patch(`${api_url}/team/add-user/${teamId}`, { user: user.id })
+      .then(() => {
+        this.addUserInTeam(user)
+        return { success: true, message: "L'utilisateur a bien été ajouté" }
+      })
+      .catch((error) => {
+        return {
+          success: false,
+          message: error.response.data.message || error.response.data.error,
+        }
+      })
   }
 
   async getActiveUsers() {
@@ -206,6 +228,28 @@ class TeamStore {
 
   async getInactiveTeams() {
     return this.teams.filter((team) => !team.isActive)
+  }
+
+  async searchTeamsByName(name) {
+    const token = authStores.getJwt()
+    return await axios
+      .get(`${api_url}/team/search/${name}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return {
+          success: 'Des équipes ont été trouvées',
+          data: res.data,
+        }
+      })
+      .catch((error) => {
+        return {
+          success: false,
+          message: error.response.data.message || error.response.data.error,
+        }
+      })
   }
 }
 

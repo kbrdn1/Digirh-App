@@ -2,12 +2,11 @@ import BtnCancel from '@components/Buttons/Cancel'
 import BtnConfirm from '@components/Buttons/Confirm'
 import SearchInput from '@components/Inputs/Search'
 import Modal from '@components/Modals/Default'
-import Label from '@components/Texts/Label'
 import { faSpinner, faUserPlus } from '@fortawesome/free-solid-svg-icons'
-import PropTypes from 'prop-types'
 import teamStore from '@stores/Team'
 import toastStore from '@stores/Toast'
-import userStore from '@stores/User'
+import { toJS } from 'mobx'
+import PropTypes from 'prop-types'
 import {
   forwardRef,
   useEffect,
@@ -15,7 +14,6 @@ import {
   useRef,
   useState,
 } from 'react'
-import { toJS } from 'mobx'
 
 const AddCollaborator = forwardRef(({ team, ext }, ref) => {
   const searchRef = useRef(null),
@@ -41,16 +39,16 @@ const AddCollaborator = forwardRef(({ team, ext }, ref) => {
 
     const user = searchRef.current.getValue()
 
+    const { success, message} = await teamStore.addCollaborator(user, team.id)
+
     if (!user) {
       setError('Veuillez sélectionner un utilisateur')
     } else {
-        teamStore.addCollaborator(user.id, team.id)
-      const newTeam = toJS(teamStore.team)
-      if (newTeam.users.find((u) => u.id === user.id)) {
-        toastStore.addToast('Collaborateur ajouté', true)
+      if (success) {
+        toastStore.addToast(message, true)
         setOpen(false)
       } else {
-        setError('Une erreur est survenue')
+        setError(message)
       }
     }
 

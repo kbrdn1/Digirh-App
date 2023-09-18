@@ -4,8 +4,7 @@ import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 import TeamTableBadge from '@components/Tables/TeamTableBadge'
 
-const Profile = observer(({ footer, full }) => {
-  const user = authStore.user
+const Profile = observer(({ user, footer, full }) => {
   const avatar = true
 
   useEffect(() => {

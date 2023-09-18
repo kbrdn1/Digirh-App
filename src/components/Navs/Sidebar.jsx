@@ -63,7 +63,7 @@ const OrganizationItems = [
   {
     content: 'Entreprise',
     iconLeft: faIndustry,
-    link: '/organization/company',
+    link: `organization/${authStore.user.team.organisation.id}`,
   },
 ]
 

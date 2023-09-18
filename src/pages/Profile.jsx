@@ -86,16 +86,13 @@ const Profile = observer(() => {
     <>
       <div className="flex flex-col lg:flex-row gap-5">
         <div className="flex flex-col gap-5 w-full lg:w-1/2">
-          <ProfileCard
-            full
-            footer={
-              // <BtnPrimary
-              //   content="Modifier les informations"
-              //   onClick={() => setOpenProfileModal(true)}
-              // />
-              <ModalProfile user={user} primary />
-            }
-          />
+          {user && (
+            <ProfileCard
+              user={user}
+              full
+              footer={<ModalProfile user={user} primary />}
+            />
+          )}
           <Card
             full
             title="Demandes d’absences"

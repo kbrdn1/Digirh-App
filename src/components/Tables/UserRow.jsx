@@ -6,7 +6,10 @@ const UserRow = ({ user }) => {
   return (
     <tr className="border-t border-light-2">
       <td className="px-6 py-4 min-w-[200px]">
-        <Link to={`/user/${user.id}`} className="flex items-center gap-3">
+        <Link
+          to={`/collaborator/${user.id}`}
+          className="flex items-center gap-3"
+        >
           <img
             src={user.avatar || '/Digirh-App/avatar.png'}
             alt="avatar"
@@ -36,7 +39,7 @@ const UserRow = ({ user }) => {
         })}
       </td>
       <td className="px-6 py-4 text-right w-8">
-        <UserTableActions user={user} inTeam/>
+        <UserTableActions user={user} inTeam />
       </td>
     </tr>
   )

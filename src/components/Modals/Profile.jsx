@@ -34,25 +34,38 @@ const Profile = ({ user, primary }) => {
   const handleSubmit = async () => {
     setIsLoading(true)
     const data = {
-      // avatar: avatarRef.current.files[0],
+      //avatar: '/avatar.png',
       name: nameRef.current.value,
       firstname: firstnameRef.current.value,
       email: emailRef.current.value,
       phone: phoneRef.current.value,
     }
 
-    await userStore.updateUserProfile(user.id, data)
-
     if (
-      data.name == authStore.user.name &&
-      data.firstname == authStore.user.firstname &&
-      data.email == authStore.user.email &&
-      data.phone == authStore.user.phone
+      authStore.user.roles.find(
+        (role) =>
+          role === 'ROLE_SUPER_ADMIN' ||
+          role === 'ROLE_ADMIN' ||
+          role === 'ROLE_RH'
+      )
     ) {
+      data.roles = user.roles
+      data.statut = user.statut
+      data.isActive = user.isActive
+      data.hiring_date = user.hiring_date
+      data.team = user.team.id
+      data.type_contrat = user.type_contrat
+      data.resp_hierarchique = user.resp_hierarchique || null
+      data.fonction = user.fonction
+    }
+
+    const request = await userStore.updateUserProfile(user.id, data)
+
+    if (request.success) {
       setOpen(false)
-      toastStore.addToast('Votre profil a bien été mis à jour', true)
       setError(null)
-    } else {
+      toastStore.addToast('Votre profil a bien été mis à jour', true)
+    } else if (request.error) {
       setError('Une erreur est survenue, veuillez réessayer...')
       toastStore.removeToast()
     }
@@ -107,7 +120,12 @@ const Profile = ({ user, primary }) => {
           <div className="flex flex-col md:flex-row gap-3 md:gap-2">
             <div className="flex flex-col gap-2">
               <Label text="Nom" />
-              <Input placeholder="Nom" defaultValue={user.name} ref={nameRef} />
+              <Input
+                placeholder="Nom"
+                defaultValue={user.name}
+                ref={nameRef}
+                full
+              />
             </div>
             <div className="flex flex-col gap-2">
               <Label text="Prénom" />
@@ -115,6 +133,7 @@ const Profile = ({ user, primary }) => {
                 placeholder="Prénom"
                 defaultValue={user.firstname}
                 ref={firstnameRef}
+                full
               />
             </div>
           </div>

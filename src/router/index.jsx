@@ -15,6 +15,8 @@ import Error from '@pages/500'
 import Teams from '@pages/Teams'
 import Team from '@pages/Team'
 import Users from '@pages/Users'
+import User from '@pages/User'
+import Organization from '@pages/Organization'
 import Profile from '@pages/Profile'
 import Calendar from '@pages/Calendar'
 import Trips from '@pages/Trips'
@@ -44,8 +46,14 @@ const router = createHashRouter([
         errorElement: <Error />,
       },
       {
-        path: '/logout',
-        element: <Logout />,
+        path: '/organization/:id',
+        element: (
+          <AuthGuard>
+            <AdminGuard>
+              <Organization />
+            </AdminGuard>
+          </AuthGuard>
+        ),
         errorElement: <Error />,
       },
       {
@@ -58,6 +66,16 @@ const router = createHashRouter([
           </AuthGuard>
         ),
         errorElement: <Error />,
+      },
+      {
+        path: '/collaborator/:id',
+        element: (
+          <AuthGuard>
+            <AdminGuard>
+              <User />
+            </AdminGuard>
+          </AuthGuard>
+        ),
       },
       {
         path: '/organization/teams',
@@ -116,6 +134,11 @@ const router = createHashRouter([
     path: '/login',
     element:
       authStore.jwt && authStore.user ? <Navigate to="/" replace /> : <Login />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/logout',
+    element: <Logout />,
     errorElement: <Error />,
   },
 ])
