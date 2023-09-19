@@ -10,6 +10,9 @@ import { faEye } from '@fortawesome/free-solid-svg-icons'
 import authStore from '@stores/Auth'
 import { observer } from 'mobx-react'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useState } from 'react'
 
 // Notification store for the demo
 const notificationStore = {
@@ -80,22 +83,19 @@ const notificationStore = {
 
 const Profile = observer(() => {
   const user = authStore.user,
-    navigate = useNavigate()
+    navigate = useNavigate();
 
   return (
     <>
       <div className="flex flex-col lg:flex-row gap-5">
         <div className="flex flex-col gap-5 w-full lg:w-1/2">
-          <ProfileCard
-            full
-            footer={
-              // <BtnPrimary
-              //   content="Modifier les informations"
-              //   onClick={() => setOpenProfileModal(true)}
-              // />
-              <ModalProfile user={user} primary />
-            }
-          />
+          {user && (
+            <ProfileCard
+              user={user}
+              full
+              footer={<ModalProfile user={user} primary />}
+            />
+          )}
           <Card
             full
             title="Demandes d’absences"

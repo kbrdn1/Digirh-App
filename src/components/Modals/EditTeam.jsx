@@ -57,35 +57,27 @@ const EditTeam = forwardRef(({ team, primary, ext, edit }, ref) => {
 
     // action via le store
     if (edit) {
-      teamStores.updateTeam(data, team.id)
 
-      if (
-        data.name_team == team.name_team &&
-        data.description == team.description &&
-        data.min_person == team.min_person &&
-        data.isActive == team.isActive
-      ) {
+      const { success, message } = await teamStores.updateTeam(data, team.id)
+
+      if (success) {
         setOpen(false)
-        toastStore.addToast("L'équipe a bien été mise à jour", true)
         setError(null)
+        toastStore.addToast(message, true)
       } else {
-        setError('Une erreur est survenue, veuillez réessayer...')
+        setError(updateTeam.message)
         toastStore.removeToast()
       }
     } else {
-      teamStores.createTeam(data)
-      if (
-        data.name_team == team.name_team &&
-        data.description == team.description &&
-        data.min_person == team.min_person &&
-        data.isActive == team.isActive
-      ) {
+      const { success, message } = await teamStores.createTeam(data)
+
+      if (success) {
         setOpen(false)
-        toastStore.addToast("L'équipe a bien été créée", true)
         setError(null)
+        toastStore.addToast(message, true)
         navigate('/teams/' + teamStores.team.id)
       } else {
-        setError('Une erreur est survenue, veuillez réessayer...')
+        setError(message)
         toastStore.removeToast()
       }
     }

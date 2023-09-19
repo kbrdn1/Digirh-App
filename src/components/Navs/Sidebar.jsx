@@ -23,55 +23,57 @@ import DropdownItems from './DropdownItems.jsx'
 import { observer } from 'mobx-react'
 import authStore from '@stores/Auth'
 
-const LeavesItems = [
-  {
-    content: 'Collaborateurs',
-    iconLeft: faUserGroup,
-    link: '/leaves/collaborators',
-  },
-  {
-    content: 'Equipes',
-    iconLeft: faUsers,
-    link: '/leaves/teams',
-  },
-]
-
-const TripItems = [
-  {
-    content: 'Collaborateurs',
-    iconLeft: faUserGroup,
-    link: '/trips/collaborators',
-  },
-  {
-    content: 'Equipes',
-    iconLeft: faUsers,
-    link: '/trips/teams',
-  },
-]
-
-const OrganizationItems = [
-  {
-    content: 'Collaborateurs',
-    iconLeft: faUserGroup,
-    link: '/organization/collaborators',
-  },
-  {
-    content: 'Equipes',
-    iconLeft: faUsers,
-    link: '/organization/teams',
-  },
-  {
-    content: 'Entreprise',
-    iconLeft: faIndustry,
-    link: '/organization/company',
-  },
-]
-
 const Sidebar = observer(() => {
   const navigate = useNavigate()
 
   const [isOpen, setIsOpen] = useState(false)
   const [openOption, setOpenOption] = useState(false)
+
+  const LeavesItems = [
+    {
+      content: 'Collaborateurs',
+      iconLeft: faUserGroup,
+      link: '/leaves/collaborators',
+    },
+    {
+      content: 'Equipes',
+      iconLeft: faUsers,
+      link: '/leaves/teams',
+    },
+  ]
+
+  const TripItems = [
+    {
+      content: 'Collaborateurs',
+      iconLeft: faUserGroup,
+      link: '/trips/collaborators',
+    },
+    {
+      content: 'Equipes',
+      iconLeft: faUsers,
+      link: '/trips/teams',
+    },
+  ]
+
+  const OrganizationItems = [
+    {
+      content: 'Collaborateurs',
+      iconLeft: faUserGroup,
+      link: '/organization/collaborators',
+    },
+    {
+      content: 'Equipes',
+      iconLeft: faUsers,
+      link: '/organization/teams',
+    },
+    {
+      content: 'Entreprise',
+      iconLeft: faIndustry,
+      link: authStore.user
+        ? `organization/${authStore.user.team.organisation.id}`
+        : 'organization/',
+    },
+  ]
 
   window.addEventListener('resize', () => {
     if (window.innerWidth > 1024) {

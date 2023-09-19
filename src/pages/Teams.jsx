@@ -57,7 +57,9 @@ const Teams = observer(() => {
               </BtnGhost>
             </div>
             <div>
-              <BtnPrimary onClick={handleToggleModal}>Créer une nouvelle équipe</BtnPrimary>
+              <BtnPrimary onClick={handleToggleModal}>
+                Créer une nouvelle équipe
+              </BtnPrimary>
             </div>
           </div>
         }

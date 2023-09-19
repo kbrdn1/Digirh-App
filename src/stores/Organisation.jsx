@@ -1,6 +1,7 @@
 import makeInspectable from 'mobx-devtools-mst'
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, toJS } from 'mobx'
 import axios from 'axios'
+import authStore from './Auth'
 
 // API URL
 const api_url = import.meta.env.VITE_API_URL
@@ -45,7 +46,7 @@ class OrganisationStore {
    * @description Returns the organisation object
    **/
   getOrganisation = () => {
-    return this.organisation
+    return toJS(this.organisation)
   }
 
   // Setters
@@ -103,7 +104,23 @@ class OrganisationStore {
    * @async
    * @method
    **/
-  async getOrganisationById(id) {}
+  async getOrganisationByUserId(id) {
+    const token = authStore.getJwt()
+
+    await axios
+      .get(api_url + '/organisation/get/' + id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        this.setOrganisation(res.data)
+        return res.data.id
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 }
 
 const organisationStore = new OrganisationStore()

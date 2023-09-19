@@ -94,7 +94,24 @@ class TypeContratStore {
    * @async
    * @method
    **/
-  async getAllTypeContrats() {}
+  async getAllTypeContrats() {
+    return await axios
+      .get(`${api_url}/type_contrat`)
+      .then((res) => {
+        this.setTypeContrats(res.data)
+        return {
+          success: true,
+          data: res.data,
+          message: 'Types de contrats récupérés avec succès',
+        }
+      })
+      .catch((error) => {
+        return {
+          success: false,
+          message: error.response.data.message || error.response.data.error,
+        }
+      })
+  }
 
   /**
    * @param {object} typeContrat

@@ -1,20 +1,28 @@
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { useRef, useState, useEffect, forwardRef, useImperativeHandle } from 'react'
-import userStore from '@stores/User'
-import authStore from '@stores/Auth'
-import toastStore from '@stores/Toast'
-import Modal from '@components/Modals/Default'
-import Input from '@components/Inputs/Default'
-import Label from '@components/Texts/Label'
-import BtnPrimary from '@components/Buttons/Primary'
-import BtnSecondary from '@components/Buttons/Secondary'
-import BtnConfirm from '@components/Buttons/Confirm'
 import BtnCancel from '@components/Buttons/Cancel'
+import BtnPrimary from '@components/Buttons/Primary'
+import BtnConfirm from '@components/Buttons/Confirm'
+import BtnSecondary from '@components/Buttons/Secondary'
+import Checkbox from '@components/Inputs/Checkbox'
+import Input from '@components/Inputs/Default'
 import InputFile from '@components/Inputs/File'
 import Select from '@components/Inputs/Select'
+import Modal from '@components/Modals/Default'
+import Label from '@components/Texts/Label'
+import { faSpinner, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import teamStore from '@stores/Team'
+import toastStore from '@stores/Toast'
+import typeContratStore from '@stores/TypeContrat'
+import userStore from '@stores/User'
 import PropTypes from 'prop-types'
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react'
 
-const EditUser = forwardRef(({ user, primary, ext }, ref) => {
+const EditUser = forwardRef(({ user, primary, ext, edit }, ref) => {
   const avatarRef = useRef(null),
     nameRef = useRef(null),
     firstnameRef = useRef(null),
@@ -22,12 +30,16 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
     phoneRef = useRef(null),
     hiringDateRef = useRef(null),
     fonctionRef = useRef(null),
+    contratRef = useRef(null),
     roleRef = useRef(null),
+    isActiveRef = useRef(null),
     [isLoading, setIsLoading] = useState(false),
     [error, setError] = useState(null),
-    [open, setOpen] = useState(false)
+    [open, setOpen] = useState(false),
+    [contrats, setContrats] = useState([])
 
   useEffect(() => {
+    getTypeContrats()
     open
       ? (window.scrollTo(0, 0), (document.body.style.overflow = 'hidden'))
       : (document.body.style.overflow = 'unset')
@@ -37,37 +49,83 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
 
   const handleSubmit = async () => {
     setIsLoading(true)
-    const data = {
-      // avatar: avatarRef.current.files[0],
-      name: nameRef.current.value,
-      firstname: firstnameRef.current.value,
-      email: emailRef.current.value,
-      phone: phoneRef.current.value,
-      hiring_date: hiringDateRef.current.value,
-      fonction: fonctionRef.current.value,
-      roles: roleRef.current.value,
-    }
+    let data;
 
-    await userStore.updateUserProfile(user.id, data)
-
-    if (
-      data.name == authStore.user.name &&
-      data.firstname == authStore.user.firstname &&
-      data.email == authStore.user.email &&
-      data.phone == authStore.user.phone &&
-      data.hiring_date == authStore.user.hiring_date &&
-      data.fonction == authStore.user.fonction &&
-      data.roles == authStore.user.roles
-    ) {
-      setOpen(false)
-      toastStore.addToast("L'utilisateur a bien été mis à jour", true)
-      setError(null)
+    if (avatarRef.current.files[0]) {
+      data = new FormData()
+      data.append('avatar', avatarRef.current.files[0])
+      data.append('name', nameRef.current.value)
+      data.append('firstname', firstnameRef.current.value)
+      data.append('email', emailRef.current.value)
+      data.append('phone', phoneRef.current.value)
+      data.append('hiring_date', hiringDateRef.current.value)
+      data.append('fonction', fonctionRef.current.value)
+      data.append('type_contrat', contratRef.current.value)
+      data.append('roles', roleRef.current.value)
+      data.append('team', user.team ? user.team.id : teamStore.team.id)
+      data.append('isActive', isActiveRef.current.checked)
+      data.append('isSuperAdmin', user.isSuperAdmin)
+      data.append('statut', user.statut.id)
+      data.append(
+        'resp_hierarchique',
+        user.resp_hierarchique ? user.resp_hierarchique : null
+      )
     } else {
-      setError('Une erreur est survenue, veuillez réessayer...')
-      toastStore.removeToast()
+      data = {
+        name: nameRef.current.value,
+        firstname: firstnameRef.current.value,
+        email: emailRef.current.value,
+        phone: phoneRef.current.value,
+        hiring_date: hiringDateRef.current.value,
+        fonction: fonctionRef.current.value,
+        type_contrat: contratRef.current.value,
+        roles: [roleRef.current.value],
+        team: user.team ? user.team.id : teamStore.team.id,
+        isActive: isActiveRef.current.checked,
+        isSuperAdmin: user.isSuperAdmin,
+        statut: user.statut.id,
+        resp_hierarchique: user.resp_hierarchique
+          ? user.resp_hierarchique
+          : null,
+      }
     }
-    setIsLoading(false)
-  }
+
+      if (edit) {
+        const { success, message } = await userStore.updateUserProfile(
+          user.id,
+          data
+        )
+
+        if (success) {
+          setOpen(false)
+          setError(null)
+          toastStore.addToast(message, true)
+        } else {
+          toastStore.removeToast()
+          setError(message)
+        }
+      } else {
+        const { success, message } = await userStore.createUser(data)
+
+        if (success) {
+          setOpen(false)
+          setError(null)
+          toastStore.addToast(message, true)
+        } else {
+          toastStore.removeToast()
+          setError(message)
+        }
+      }
+      setIsLoading(false)
+    },
+    getTypeContrats = async () => {
+      const { data } = await typeContratStore.getAllTypeContrats()
+      const contrats = data.map((contrat) => ({
+        value: contrat.id,
+        label: contrat.name_type,
+      }))
+      setContrats(contrats)
+    }
 
   useImperativeHandle(ref, () => ({
     toggleModal() {
@@ -78,18 +136,28 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
   return (
     <>
       {ext ? null : primary ? (
-        <BtnPrimary onClick={() => setOpen(true)}>
-          Modifier les informations
-        </BtnPrimary>
-      ) : (
+        edit ? (
+          <BtnPrimary onClick={() => setOpen(true)}>
+            Modifier les informations
+          </BtnPrimary>
+        ) : (
+          <BtnConfirm onClick={() => setOpen(true)} iconLeft={faUserPlus}>
+            Ajouter un utilisateur
+          </BtnConfirm>
+        )
+      ) : edit ? (
         <BtnSecondary onClick={() => setOpen(true)}>
           Modifier les informations
         </BtnSecondary>
+      ) : (
+        <BtnConfirm onClick={() => setOpen(true)} iconLeft={faUserPlus}>
+          Ajouter un utilisateur
+        </BtnConfirm>
       )}
       {open && (
         <Modal
           onSubmit={handleSubmit}
-          title="Modifier les informations"
+          title={edit ? 'Modifier les informations' : 'Ajouter un utilisateur'}
           color="#9941ED"
           full
           error={error}
@@ -110,12 +178,7 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
             Photo de profil
           </div>
           <div className="flex flex-col gap-2">
-            <InputFile
-              ref={avatarRef}
-              accept="image/png, image/jpeg"
-              defaultValue={user.avatar ? user.avatar : null}
-              full
-            />
+            <InputFile ref={avatarRef} accept="image/png, image/jpeg" full />
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
             Identité
@@ -123,7 +186,13 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
           <div className="flex flex-col md:flex-row gap-3 md:gap-2">
             <div className="flex flex-col gap-2">
               <Label text="Nom" />
-              <Input placeholder="Nom" defaultValue={user.name} ref={nameRef} />
+              <Input
+                placeholder="Nom"
+                defaultValue={user.name}
+                ref={nameRef}
+                full
+                required
+              />
             </div>
             <div className="flex flex-col gap-2">
               <Label text="Prénom" />
@@ -131,6 +200,8 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
                 placeholder="Prénom"
                 defaultValue={user.firstname}
                 ref={firstnameRef}
+                full
+                required
               />
             </div>
           </div>
@@ -145,6 +216,7 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
               defaultValue={user.email}
               ref={emailRef}
               full
+              required
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -155,6 +227,7 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
               defaultValue={user.phone}
               ref={phoneRef}
               full
+              required
             />
           </div>
           <div className="font-franklin text-gray text-[1rem] font-bold">
@@ -170,6 +243,7 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
               }
               ref={hiringDateRef}
               full
+              required
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -182,18 +256,41 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
             />
           </div>
           <div className="flex flex-col gap-2">
+            <Label text="Contrat" />
+            <Select
+              defaultValue={user.type_contrat}
+              placeholder="Choisir un contrat"
+              ref={contratRef}
+              full
+              required
+              options={contrats}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
             <Label text="Rôle" />
             <Select
-              defaultValue={user.roles}
+              defaultValue={user.roles[0]}
+              placeholder="Choisir un rôle"
               ref={roleRef}
               full
+              required
               options={[
+                { value: null, label: 'Choisir un rôle' },
                 { value: 'ROLE_ADMIN', label: 'Directeur RH' },
                 { value: 'ROLE_RRT_CA', label: 'Responsable RTT CA' },
-                { value: 'ROLE_RFD', label: 'Responsable des Frais de Déplacement' },
+                {
+                  value: 'ROLE_RFD',
+                  label: 'Responsable des Frais de Déplacement',
+                },
                 { value: 'ROLE_RESP', label: "Chef d'équipe" },
+                { value: 'ROLE_USER', label: 'Collaborateur' },
               ]}
             />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Checkbox defaultChecked={user.isActive} ref={isActiveRef}>
+              Actif / Inactif
+            </Checkbox>
           </div>
         </Modal>
       )}
@@ -204,9 +301,10 @@ const EditUser = forwardRef(({ user, primary, ext }, ref) => {
 EditUser.displayName = 'EditUser'
 
 EditUser.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   primary: PropTypes.bool,
   ext: PropTypes.bool,
+  edit: PropTypes.bool,
 }
 
 export default EditUser

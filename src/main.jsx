@@ -4,6 +4,8 @@ import '@styles/animations.css'
 import '@styles/calendar.css'
 import { RouterProvider } from 'react-router-dom'
 import router from '@router'
+import AuthContext from '@contexts/Auth'
+import authStore from '@stores/Auth'
 import axios from 'axios'
 
 axios.interceptors.request.use(
@@ -17,5 +19,7 @@ axios.interceptors.request.use(
 )
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router}></RouterProvider>
+  <AuthContext.Provider value={authStore}>
+    <RouterProvider router={router}></RouterProvider>
+  </AuthContext.Provider>
 )

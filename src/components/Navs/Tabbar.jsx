@@ -35,9 +35,12 @@ const Tabbar = observer(() => {
         </p>
       </div>
       {authStore.user.roles.find(
-        (role) => role === 'ROLE_ADMIN' || role === 'ROLE_SUPER_ADMIN'
+        (role) =>
+          role === 'ROLE_ADMIN' ||
+          role === 'ROLE_SUPER_ADMIN' ||
+          role === 'ROLE_RH'
       ) ? (
-        <Searchbar />
+        <Searchbar user team link/>
       ) : null}
       <FontAwesomeIcon
         icon={faCog}

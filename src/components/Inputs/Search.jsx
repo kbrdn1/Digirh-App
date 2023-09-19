@@ -11,12 +11,12 @@ import {
   useRef,
   useState,
 } from 'react'
+import { Link } from 'react-router-dom'
 
-import { toJS } from 'mobx'
 import PropTypes from 'prop-types'
 
 const Search = forwardRef((props, ref) => {
-  const { full, disabled, user, team, ...rest } = props,
+  const { full, disabled, user, team, link, ...rest } = props,
     searchRef = useRef(''),
     [open, setOpen] = useState(true),
     [users, setUsers] = useState([]),
@@ -25,6 +25,27 @@ const Search = forwardRef((props, ref) => {
     [debouncedValue, isWaiting] = useDebounce(value, 400),
     [selected, setSelected] = useState(null),
     UserElement = ({ user }) => {
+      if (link) {
+        return (
+          <Link
+            to={`/collaborator/${user.id}`}
+            className="flex gap-3 p-2 bg-light cursor-pointer"
+          >
+            <img
+              src={user.avatar || '/avatar.png'}
+              alt="avatar"
+              className="h-10 w-10 rounded-lg"
+            />
+            <div>
+              <div className="font-bold">
+                {user.name} {user.firstname}
+              </div>
+              <div className="text-gray">{user.fonction}</div>
+            </div>
+          </Link>
+        )
+      }
+
       const handleClick = () => {
         setSelected(user)
         setValue(`${user.name} ${user.firstname}`)
@@ -51,6 +72,14 @@ const Search = forwardRef((props, ref) => {
       )
     },
     TeamElement = ({ team }) => {
+      if (link) {
+        return (
+          <Link to={`/team/${team.id}`} className="flex gap-3 p-2 bg-light">
+            <TeamBadge teamName={team.name_team} color={team.color} />
+          </Link>
+        )
+      }
+
       const handleClick = () => {
         setSelected(team)
         setValue(team.name_team)
@@ -62,17 +91,23 @@ const Search = forwardRef((props, ref) => {
           <TeamBadge teamName={team.name_team} color={team.color} />
         </div>
       )
+    },
+    searchUser = async () => {
+      const search = await userStore.searchUsersByName(debouncedValue)
+      setUsers(search.data)
+    },
+    searchTeam = async () => {
+      const search = await teamStore.searchTeamsByName(debouncedValue)
+      setTeams(search.data)
     }
 
   useEffect(() => {
     if (debouncedValue) {
       if (user) {
-        userStore.searchUserByName(debouncedValue)
-        setUsers(toJS(userStore.users))
+        searchUser()
       }
       if (team) {
-        teamStore.searchTeam(debouncedValue)
-        setTeams(teamStore.teams)
+        searchTeam()
       }
     }
   }, [debouncedValue])
@@ -83,8 +118,14 @@ const Search = forwardRef((props, ref) => {
     },
   }))
 
+  window.addEventListener('click', (e) => {
+    if (searchRef.current && !searchRef.current.contains(e.target)) {
+      setOpen(false)
+    }
+  })
+
   return (
-    <div className="relative group">
+    <div className="relative group search">
       <div
         className={`relative flex items-center hover:outline hover:outline-2 hover:outline-primary rounded-md transition-all ${
           full ? 'w-full' : 'w-fit'
@@ -119,24 +160,26 @@ const Search = forwardRef((props, ref) => {
           <div>
             {users && user && value ? (
               <div className="relative sticky">
-                <p className="text-md text-font-medium text-white bg-primary px-2 py-1 w-full">
+                <p className="text-md font-medium text-white bg-primary-5 px-2 py-1 w-full">
                   Collaborateurs
                 </p>
-                {users.map((user, index) => (
-                  <UserElement key={index} user={user} />
-                ))}
+                {users.length > 0 &&
+                  users.map((user, index) => (
+                    <UserElement key={index} user={user} />
+                  ))}
               </div>
             ) : (
               user && <p className="py-1 px-2">Aucun résultat</p>
             )}
             {teams && team && value ? (
               <>
-                <p className="text-md text-font-medium text-white bg-primary px-2 py-1 w-full">
+                <p className="text-md font-medium text-white bg-primary px-2 py-1 w-full">
                   Equipes
                 </p>
-                {teams.map((team, index) => (
-                  <TeamElement key={index} user={team} />
-                ))}
+                {teams.length > 0 &&
+                  teams.map((team, index) => (
+                    <TeamElement key={index} team={team} />
+                  ))}
               </>
             ) : (
               team && <p className="py-1 px-2">Aucun résultat</p>
@@ -156,6 +199,7 @@ Search.propTypes = {
   onSearch: PropTypes.func,
   user: PropTypes.bool,
   team: PropTypes.bool,
+  link: PropTypes.bool,
 }
 
 export default Search
