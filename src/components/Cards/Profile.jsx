@@ -1,31 +1,37 @@
-import authStore from '@stores/Auth'
-import teamStore from '@stores/Team'
-import { observer } from 'mobx-react'
-import { useEffect } from 'react'
 import TeamTableBadge from '@components/Tables/TeamTableBadge'
+import teamStore from '@stores/Team'
+import axios from 'axios'
+import { observer } from 'mobx-react'
+import { useEffect, useState } from 'react'
+import { toJS } from 'mobx'
 
 const Profile = observer(({ user, footer, full }) => {
-  const avatar = true
+  const [avatar, setAvatar] = useState(null)
 
   useEffect(() => {
     teamStore.getTeamById(user.team.id)
-  }, [user.team.id])
+    axios
+      .get('https://localhost:8000/api/user/avatar/' + user.id)
+      .then((res) => {
+        setAvatar(res.data)
+      })
+    }, [user.team.id, avatar])
+    console.log(toJS(user))
   return (
     <div
       className={` bg-white shadow-xl font-nunito flex flex-col rounded-[12px] ${
         full ? 'w-full' : 'w-fit'
       }`}
     >
-      <div
-        className={`relative p-[20px] flex flex-col md:flex-row items-center gap-[8px] justify-between w-full border-b border-light-2 ${
-          avatar ? 'md:pl-[150px]' : null
-        }`}
-      >
-        {avatar && (
-          <div className="md:absolute mx-auto md:-top-[25px] md:left-[25px] rounded-[10px] w-fit overflow-hidden border-3 shadow-md">
-            <img className="w-[100px]" src="/avatar.png" alt="profile-pic" />
-          </div>
-        )}
+      <div className="relative p-[20px] flex flex-col md:flex-row items-center gap-[8px] justify-between w-full border-b border-light-2 md:pl-[150px]">
+        <div className="md:absolute mx-auto md:-top-[25px] md:left-[25px] rounded-[10px] w-fit overflow-hidden border-3 shadow-md">
+          <img
+            className="w-[100px]"
+            src={avatar ? `data:image/jpeg;base64, ${avatar}` : '/avatar.png'}
+            alt="profile-pic"
+          />
+        </div>
+
         <div className="text-black text-[2rem] text-center">
           {user.firstname + ' ' + user.name}
         </div>

@@ -33,12 +33,23 @@ const Profile = ({ user, primary }) => {
 
   const handleSubmit = async () => {
     setIsLoading(true)
-    const data = {
-      //avatar: '/avatar.png',
-      name: nameRef.current.value,
-      firstname: firstnameRef.current.value,
-      email: emailRef.current.value,
-      phone: phoneRef.current.value,
+
+    let data
+    if (avatarRef.current.files[0]) {
+      console.log(avatarRef.current.files[0])
+      data = new FormData()
+      data.append('avatar', avatarRef.current.files[0])
+      data.append('name', nameRef.current.value)
+      data.append('firstname', firstnameRef.current.value)
+      data.append('email', emailRef.current.value)
+      data.append('phone', phoneRef.current.value)
+    } else {
+      data = {
+        name: nameRef.current.value,
+        firstname: firstnameRef.current.value,
+        email: emailRef.current.value,
+        phone: phoneRef.current.value,
+      }
     }
 
     if (

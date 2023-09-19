@@ -10,6 +10,9 @@ import { faEye } from '@fortawesome/free-solid-svg-icons'
 import authStore from '@stores/Auth'
 import { observer } from 'mobx-react'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import axios from 'axios'
+import { useState } from 'react'
 
 // Notification store for the demo
 const notificationStore = {
@@ -80,7 +83,7 @@ const notificationStore = {
 
 const Profile = observer(() => {
   const user = authStore.user,
-    navigate = useNavigate()
+    navigate = useNavigate();
 
   return (
     <>

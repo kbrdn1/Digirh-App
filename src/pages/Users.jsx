@@ -10,6 +10,24 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
 import { useEffect, useState } from 'react'
 
+const emptyUser = {
+  name: '',
+  firstname: '',
+  email: '',
+  phone: '',
+  hiring_date: new Date().toDateString(
+    'fr-FR',
+    { year: 'numeric', month: 'long', day: 'numeric' },
+  ),
+  fonction: '',
+  type_contrat: '',
+  roles: [],
+  isActive: true,
+  isSuperAdmin: false,
+  avatar: '',
+  resp_hierarchique: null,
+}
+
 const Users = observer(() => {
   const [activeUsers, setActiveUsers] = useState(null),
     [inactiveUsers, setInactiveUsers] = useState(null),
@@ -53,7 +71,7 @@ const Users = observer(() => {
                   </BtnGhost>
                 </div>
                 <div className="flex flex-col gap-2 items-center md:flex-row">
-                  <ModalEditUser />
+                  <ModalEditUser user={emptyUser} />
                 </div>
               </div>
             }
@@ -143,9 +161,7 @@ const Users = observer(() => {
             )
           ) : (
             <UserTable
-              users={
-                toJS(teamStore.team.users) ? toJS(teamStore.team.users) : []
-              }
+              users={toJS(userStore.users) ? toJS(userStore.users) : []}
             />
           ))}
       </div>

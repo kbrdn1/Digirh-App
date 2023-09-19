@@ -48,11 +48,30 @@ const EditUser = forwardRef(({ user, primary, ext, edit }, ref) => {
   }, [open])
 
   const handleSubmit = async () => {
-      setIsLoading(true)
-      const data = {
-        avatar: avatarRef.current.files[0]
-          ? avatarRef.current.files[0]
-          : user.avatar,
+    setIsLoading(true)
+    let data;
+
+    if (avatarRef.current.files[0]) {
+      data = new FormData()
+      data.append('avatar', avatarRef.current.files[0])
+      data.append('name', nameRef.current.value)
+      data.append('firstname', firstnameRef.current.value)
+      data.append('email', emailRef.current.value)
+      data.append('phone', phoneRef.current.value)
+      data.append('hiring_date', hiringDateRef.current.value)
+      data.append('fonction', fonctionRef.current.value)
+      data.append('type_contrat', contratRef.current.value)
+      data.append('roles', roleRef.current.value)
+      data.append('team', user.team ? user.team.id : teamStore.team.id)
+      data.append('isActive', isActiveRef.current.checked)
+      data.append('isSuperAdmin', user.isSuperAdmin)
+      data.append('statut', user.statut.id)
+      data.append(
+        'resp_hierarchique',
+        user.resp_hierarchique ? user.resp_hierarchique : null
+      )
+    } else {
+      data = {
         name: nameRef.current.value,
         firstname: firstnameRef.current.value,
         email: emailRef.current.value,
@@ -69,6 +88,7 @@ const EditUser = forwardRef(({ user, primary, ext, edit }, ref) => {
           ? user.resp_hierarchique
           : null,
       }
+    }
 
       if (edit) {
         const { success, message } = await userStore.updateUserProfile(

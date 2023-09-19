@@ -99,7 +99,7 @@ class UserStore {
     const token = authStore.getJwt()
 
     await axios
-      .get(`${api_url}/user`, {
+      .get(`${api_url}/user/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -163,7 +163,7 @@ class UserStore {
     const token = authStore.getJwt()
 
     return await axios
-      .patch(`${api_url}/user/edit/${id}`, data, {
+      .patch(`${api_url}/user/edit/${id}?_method=patch`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
